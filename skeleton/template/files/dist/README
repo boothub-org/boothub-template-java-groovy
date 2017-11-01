@@ -1,0 +1,8 @@
+{{~#def 'githubProjectUrl'}}https://github.com/{{ghProjectOwner}}/{{ghProjectId}}{{/def~}}
+{{~def 'siteUrl' (default projectPageUrl githubProjectUrl)}}
+{{~def 'prjId' (asJavaId ghProjectId)~}}
+=======================================================================
+ {{projectName}} @{{prjId}}Version@
+=======================================================================
+
+Visit the {{projectName}} site for the latest news and downloads: {{siteUrl}}

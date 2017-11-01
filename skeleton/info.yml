@@ -1,0 +1,22 @@
+id: org.boothub.java-groovy
+name: Java / Groovy
+caption: A feature-rich Gradle-based skeleton for Java and/or Groovy projects.
+version:
+  major: 0
+  minor: 1
+  patch: 0
+
+minimumRequiredBootHub:
+  major: 0
+  minor: 1
+  patch: 0
+
+homepage: http://www.boothub.org/skeletons/java-groovy
+
+authors:
+  - Serban Iordache
+
+tags:
+  - java
+  - groovy
+  - gradle

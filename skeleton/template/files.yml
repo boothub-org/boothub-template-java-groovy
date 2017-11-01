@@ -1,0 +1,11 @@
+--- !!org.boothub.context.FileContext
+filePath: ___gitignore
+targetPath: .gitignore
+
+--- !!org.boothub.context.FileContext
+filePath: settings.gradle
+enabled: {{asBoolean multiModule}}
+
+--- !!org.boothub.context.FileContext
+filePath: ghpages/CNAME
+enabled: {{asBoolean ghPagesCname}}

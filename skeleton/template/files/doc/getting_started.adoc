@@ -1,0 +1,36 @@
+[[getting_started]]
+= Getting Started
+
+CAUTION: You need Java 8 or newer in order to use {{projectName}}.
+
+{{projectName}} is available in Maven Central and JCenter.
+
+[subs="attributes",options="nowrap",title="Maven"]
+----
+{{#if multiModule~}}
+{{#each modules~}}
+&lt;dependency&gt;
+    &lt;groupId&gt;{project-group}&lt;/groupId&gt;
+    &lt;artifactId&gt;{{artifact}}&lt;/artifactId&gt;
+    &lt;version&gt;{project-version}&lt;/version&gt;
+&lt;/dependency&gt;
+{{/each}}
+{{else}}
+&lt;dependency&gt;
+    &lt;groupId&gt;{project-group}&lt;/groupId&gt;
+    &lt;artifactId&gt;{project-name}&lt;/artifactId&gt;
+    &lt;version&gt;{project-version}&lt;/version&gt;
+&lt;/dependency&gt;
+{{~/if}}
+----
+
+[subs="attributes",options="nowrap",title="Gradle"]
+----
+{{#if multiModule~}}
+{{#each modules~}}
+compile '{project-group}:{{artifact}}:{project-version}'
+{{/each}}
+{{else}}
+compile '{project-group}:{project-name}:{project-version}'
+{{~/if}}
+----

@@ -1,0 +1,53 @@
+{{#each modules}}
+--- !!org.boothub.context.SourceContext
+artifact: {{artifact}}
+fileContexts:
+    - !!org.boothub.context.SourceFileContext
+      fileName: JavaMain.java
+      targetBaseDir: src/main/java
+      targetPackage: {{basePackage}}
+      targetFileClass: {{appMainClass}}
+      enabled: {{and useJava (not useGroovy) appMainClass (compare artifact '==' appModule.artifact)}}
+
+    - !!org.boothub.context.SourceFileContext
+      fileName: JavaUtil.java
+      targetBaseDir: src/main/java
+      targetPackage: {{basePackage}}
+      targetFileClass: {{artifactAsClassName}}JavaUtil
+      enabled: {{and useJava (or useGroovy (not appMainClass) (compare artifact '!=' appModule.artifact))}}
+
+    - !!org.boothub.context.SourceFileContext
+      fileName: JavaTest.java
+      targetBaseDir: src/test/java
+      targetPackage: {{basePackage}}
+      targetFileClass: {{artifactAsClassName}}Test
+      enabled: {{and useJava useJUnit}}
+
+    - !!org.boothub.context.SourceFileContext
+      fileName: GroovyTest.groovy
+      targetBaseDir: src/test/groovy
+      targetPackage: {{basePackage}}
+      targetFileClass: {{artifactAsClassName}}Test
+      enabled: {{and (not useJava) useJUnit}}
+
+    - !!org.boothub.context.SourceFileContext
+      fileName: GroovyMain.groovy
+      targetBaseDir: src/main/groovy
+      targetPackage: {{basePackage}}
+      targetFileClass: {{appMainClass}}
+      enabled: {{and useGroovy appMainClass (compare artifact '==' appModule.artifact)}}
+
+    - !!org.boothub.context.SourceFileContext
+      fileName: GroovyUtil.groovy
+      targetBaseDir: src/main/groovy
+      targetPackage: {{basePackage}}
+      targetFileClass: {{artifactAsClassName}}GroovyUtil
+      enabled: {{and useGroovy (or (not appMainClass) (compare artifact '!=' appModule.artifact))}}
+
+    - !!org.boothub.context.SourceFileContext
+      fileName: GroovySpec.groovy
+      targetBaseDir: src/test/groovy
+      targetPackage: {{basePackage}}
+      targetFileClass: {{artifactAsClassName}}Spec
+      enabled: {{useSpock}}
+{{/each}}
