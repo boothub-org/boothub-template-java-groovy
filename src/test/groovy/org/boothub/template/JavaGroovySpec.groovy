@@ -193,7 +193,7 @@ class JavaGroovySpec extends Specification {
     }
 
     private static boolean checkAsciiDoc(ProjectContext context) {
-        def builder = new GradleTemplateBuilder(TEMPLATE_DIR).withContext(context)
+        def builder = new GradleTemplateBuilder(TEMPLATE_DIR).withContext(context).withInProcessBuild(true)
         def taskName = builder.getQualifiedTaskName(null, 'asciidoctor')
         def gradleResult = builder.runGradle(taskName)
         assert builder.checkTask(taskName, gradleResult)
