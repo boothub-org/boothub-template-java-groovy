@@ -1,7 +1,7 @@
 [[user_guide]]
 = User Guide
 
-NOTE: The JavaDoc is available link:javadoc/[here].
+NOTE: The {{#if useGroovy}}Groovy{{else}}Java{{/if}}Doc is available link:{{#if useGroovy}}groovy{{else}}java{{/if}}doc/[here].
 
 The following section describes the steps required to start using {{projectName}}:
 
