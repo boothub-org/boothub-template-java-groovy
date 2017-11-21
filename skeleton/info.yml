@@ -3,15 +3,15 @@ name: Java / Groovy
 caption: A feature-rich Gradle-based skeleton for Java and/or Groovy projects.
 version:
   major: 0
-  minor: 1
+  minor: 2
   patch: 0
 
 minimumRequiredBootHub:
   major: 0
-  minor: 1
+  minor: 2
   patch: 0
 
-homepage: http://www.boothub.org/skeletons/java-groovy
+homepage: http://java-groovy.boothub.org
 
 authors:
   - Serban Iordache
