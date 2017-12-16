@@ -2,8 +2,25 @@
 {{~#def 'githubProjectUrl'}}https://github.com/{{ghProjectOwner}}/{{ghProjectId}}{{/def~}}
 {{~#def 'githubRepoUrl'}}{{githubProjectUrl}}.git{{/def~}}
 {{~def 'siteUrl' (default projectPageUrl githubProjectUrl)}}
+{{#def 'docBaseUrl'}}{{#if ghPagesCname}}http://{{ghPagesCname}}{{else}}https://{{ghProjectOwner}}.github.io/{{ghProjectId}}{{/if}}{{/def}}
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.gradle.plugins.signing.Sign
+{{~#if publishDoc}}
+import groovy.text.SimpleTemplateEngine
+import org.kohsuke.github.*
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'org.kohsuke:github-api:1.90'
+    }
+}
+{{~/if}}
 
 plugins {
     {{#ifb (and useJava (not useGroovy))}}id 'java'{{/ifb}}
@@ -24,6 +41,7 @@ plugins {
     {{#if checkLicenseHeader}}id "com.github.hierynomus.license" version "0.12.1"{{/if}}
     id "net.saliman.properties" version "1.4.6"
     id 'com.github.jk1.dependency-license-report' version '0.3.8'
+    {{#if useClover~}}id "com.bmuschko.clover" version "2.1.3"{{~/if}}
 }
 
 project.version.with {
@@ -63,7 +81,7 @@ def pomConfig = {
     }
 }
 
-{{#ifb (or useGroovy useSpock)}}ext.groovyVersion = '2.4.11'{{/ifb}}
+{{#ifb (or useGroovy useSpock)}}ext.groovyVersion = '2.4.12'{{/ifb}}
 
 {{#encloseIf multiModule prefix="allprojects {" suffix="}"}}
 group = '{{group}}'
@@ -81,6 +99,7 @@ tasks.withType(Javadoc) {
 {{#ifb (and useJava (not useGroovy))~}}apply plugin: 'java'{{/ifb}}
 {{#ifb (or useGroovy useSpock)~}}apply plugin: 'groovy'{{/ifb}}
 {{#if useFindbugs~}}apply plugin: 'findbugs'{{/if}}
+{{#if useClover~}}apply plugin: 'com.bmuschko.clover'{{/if}}
 apply plugin: 'signing'
 {{~/if}}
 
@@ -140,6 +159,7 @@ dependencies {
   testCompile 'junit:junit:4.12'
   {{/if}}
   testCompile('ch.qos.logback:logback-classic:1.1.7')
+  {{#if useClover~}}clover 'org.openclover:clover:4.2.1'{{/if}}
 }
 
 sourceSets.main.compileClasspath += configurations.provided
@@ -236,6 +256,49 @@ idea {
         scopes.PROVIDED.plus += [configurations.provided]
     }
 }
+{{#if useClover~}}
+clover {
+    testIncludes = ['**/*Test.java'{{#ifb (or useGroovy useSpock)~}}, '**/*Spec.groovy'{{~/ifb}}]
+//        targetPercentage = '85%'
+
+    contexts {
+        statement {
+            name = 'log'
+            regexp = '^.*logger\\..*'
+        }
+        method {
+            name = 'main'
+            regexp = 'public static void main\\(String args\\[\\]\\).*'
+        }
+        method {
+            name = 'getters'
+            regexp = 'public [^\\s]+ get[A-Z][^\\s]+\\(\\)'
+            maxStatements = 1
+        }
+        method {
+            name = 'setters'
+            regexp = 'public void set[A-Z][^\\s]+\\(.+\\)'
+            maxStatements = 1
+        }
+    }
+
+    report {
+        html = true
+        pdf = true
+        filter = 'log,main,getters,setters'
+
+        testResultsDir = project.tasks.getByName('test').reports.junitXml.destination
+        testResultsInclude = 'TEST-*.xml'
+
+        columns {
+            coveredMethods format: 'longbar', min: '75'
+            coveredStatements format: '%'
+            coveredBranches format: 'raw'
+            totalPercentageCovered format: '%', scope: 'package'
+        }
+    }
+}
+{{~/if}}
 {{~/encloseIf}}
 
 def gitIgnore = file(".gitignore").readLines()
@@ -268,6 +331,8 @@ gitPublish {
         def pgType = project.hasProperty('ghPageType') ? ghPageType : 'latest'
         if(pgType == 'init') {
             from file("ghpages")
+        } else if(pgType == 'list') {
+            from file("build/release-list")
         } else {
             from file("${asciidoctor.outputDir.path}/html5")
             from file("build/docs")
@@ -275,6 +340,12 @@ gitPublish {
         def docDir = Boolean.valueOf({{prjId}}ReleaseBuild) ? 'releases' : 'snapshots'
         if(pgType == 'init') {
             into "."
+        } else if(pgType == 'list') {
+            into "."
+            preserve {
+                include '**'
+                exclude "releases.md"
+            }
         } else if(pgType == 'version') {
             gitPublishPush.enabled = (docDir != 'snapshots')
             into "$docDir/${{prjId}}Version"
@@ -376,6 +447,55 @@ def configureJavadoc(task) {
           links "http://docs.oracle.com/javase/8/docs/api/"
       }
   }
+}
+{{/if}}
+{{~#if publishDoc}}
+task "update-release-list" {
+    doLast {
+        updateReleaseList('{{docBaseUrl}}')
+    }
+}
+
+def updateReleaseList(String docBaseUrl) {
+    List<String> releases = getReleases()
+    def markdown = getReleasesMarkdown(releases, docBaseUrl)
+    def releaseListDir = new File('build/release-list')
+    releaseListDir.mkdirs()
+    new File(releaseListDir, 'releases.md').write(markdown)
+}
+
+def getReleases() {
+    GitHub gitHubApi = GitHub.connectUsingPassword(System.getenv('GH_PAGES_ACCESS_TOKEN') ?: '', '')
+    def releases = gitHubApi.getOrganization('{{ghProjectOwner}}')
+            .getRepository('{{ghProjectId}}')
+            .getDirectoryContent("releases", "gh-pages")*.name
+    releases.removeAll { !it || it == 'latest' }
+    releases.reverse()
+}
+
+def getReleasesMarkdown(List<String> releases, String docBaseUrl) {
+    def releasesTemplate = '''
+            ## List of all releases ##
+            
+            **Latest snapshot**
+            - [documentation](\u0024docBaseUrl/snapshots/latest)
+            - [javadoc](\u0024docBaseUrl/snapshots/latest/javadoc)
+            
+            <% releases.each { %>**Release \u0024it**
+              - [documentation](\u0024docBaseUrl/releases/\u0024it)
+              - [javadoc](\u0024docBaseUrl/releases/\u0024it/javadoc)
+              
+            <% } %>
+        '''.stripIndent()
+
+    def engine = new SimpleTemplateEngine()
+    def template = engine.createTemplate(releasesTemplate)
+    def binding = [
+            docBaseUrl: docBaseUrl,
+            releases  : releases
+    ]
+
+    template.make(binding).toString()
 }
 {{/if}}
 def readFromConsole(prompt) {

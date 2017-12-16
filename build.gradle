@@ -47,7 +47,7 @@ def pomConfig = {
     }
 }
 
-ext.groovyVersion = '2.4.11'
+ext.groovyVersion = '2.4.12'
 
 group = 'org.boothub'
 version = boothubTemplateJavaGroovyVersion
