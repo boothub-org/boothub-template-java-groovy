@@ -3,6 +3,10 @@ filePath: ___gitignore
 targetPath: .gitignore
 
 --- !!org.boothub.context.FileContext
+filePath: ___gitattributes
+targetPath: .gitattributes
+
+--- !!org.boothub.context.FileContext
 filePath: settings.gradle
 enabled: {{asBoolean multiModule}}
 
