@@ -32,4 +32,4 @@ useFindbugs: false
 
 useAsciiDoc: false
 publishDoc: false
-# useClover: false
+useClover: false

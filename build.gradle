@@ -107,9 +107,13 @@ dependencies {
   testCompile('com.athaydes:spock-reports:1.2.13') { transitive = false}
 
   testCompile('ch.qos.logback:logback-classic:1.1.7')
+    testCompile ("org.boothub:boothub-core:$boothubVersion") {
 
-  testCompile ("org.boothub:boothub-core:$boothubVersion")
-  testCompile ("org.boothub:boothub-gradle-test:$boothubVersion")
+      exclude module: 'groovy-all'
+  }
+  testCompile ("org.boothub:boothub-gradle-test:$boothubVersion") {
+      exclude module: 'groovy-all'
+  }
   testCompile gradleTestKit()
 }
 

@@ -10,5 +10,5 @@ Welcome to *{{projectName}}*!
 **Useful links**
  - [Documentation]({{docBaseUrl}})
  - [javadoc]({{docBaseUrl}}/releases/latest/javadoc)
- - [List of all releases](https://{{ghProjectOwner}}/{{docBaseUrl}}/blob/gh-pages/releases.md)
+ - [List of all releases](https://github.com/{{ghProjectOwner}}/{{ghProjectId}}/blob/gh-pages/releases.md)
 {{~/if}}

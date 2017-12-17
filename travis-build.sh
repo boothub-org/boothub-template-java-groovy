@@ -16,7 +16,7 @@ if [ "${TRAVIS_PULL_REQUEST}" == "false" -a "${TRAVIS_BRANCH}" == "master" ]; th
   ./gradlew --no-daemon -i -s gitPublishPush --rerun-tasks -PghPageType=version
   echo Finished gitPublishPush with ghPageType=version
 
-  echo Start updating releases.md
-  ./gradlew --no-daemon -i -s update-release-list gitPublishPush --rerun-tasks -PghPageType=list
-  echo Finished updating releases.md
+#  echo Start updating releases.md
+#  ./gradlew --no-daemon -i -s update-release-list gitPublishPush --rerun-tasks -PghPageType=list
+#  echo Finished updating releases.md
 fi
