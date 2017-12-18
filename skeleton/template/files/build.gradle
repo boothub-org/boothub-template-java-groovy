@@ -485,11 +485,11 @@ def getReleasesMarkdown(List<String> releases, String docBaseUrl) {
             
             **Latest snapshot**
             - [documentation](\u0024docBaseUrl/snapshots/latest)
-            - [javadoc](\u0024docBaseUrl/snapshots/latest/javadoc)
+            - [javadoc](\u0024docBaseUrl/snapshots/latest/{{#if useGroovy}}groovydoc{{else}}javadoc{{/if}})
             
             <% releases.each { %>**Release \u0024it**
               - [documentation](\u0024docBaseUrl/releases/\u0024it)
-              - [javadoc](\u0024docBaseUrl/releases/\u0024it/javadoc)
+              - [javadoc](\u0024docBaseUrl/releases/\u0024it/{{#if useGroovy}}groovydoc{{else}}javadoc{{/if}})
               
             <% } %>
         '''.stripIndent()
