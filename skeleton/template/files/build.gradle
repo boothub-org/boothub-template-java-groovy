@@ -317,6 +317,7 @@ asciidoctor {
              linkattrs: true,
              linkcss: true,
              'git-tag': {{prjId}}Tag,
+             'blob-root-master': "https://github.com/{{ghProjectOwner}}/{{ghProjectId}}/blob/master",
              'blob-root': "https://github.com/{{ghProjectOwner}}/{{ghProjectId}}/blob/${{prjId}}Tag"
 }
 {{#if publishDoc}}
