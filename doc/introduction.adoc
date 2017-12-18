@@ -8,6 +8,19 @@ Click on the icon below to read the license file:
 
 image::license.png[role="thumb" link="{blob-root}/LICENSE"]
 
-A few words about boothub-template-java-groovy:
+boothub-template-java-groovy is a feature-rich skeleton for Java and/or Groovy projects with Gradle build file.
 
-*TBD*
+Features:
+
+ - single or multi-module project
+ - versioning
+ - license header check
+ - support for Eclipse and IntelliJ Idea
+ - testing with JUnit and/or Spock
+ - automatic build and test via https://travis-ci.com/[Travis CI]
+ - support for http://asciidoc.org/[AsciiDoc] documentation
+ - automatic publishing of versioned AsciiDoc and javadoc documentation to https://help.github.com/articles/user-organization-and-project-pages/#project-pages[GitHub Project Pages]
+ - static code analysis with http://findbugs.sourceforge.net/[findbugs]
+ - code coverage with https://www.atlassian.com/software/clover[Clover]
+ - jar signing
+ - jar publishing to JCenter (and from there to Maven Central)
