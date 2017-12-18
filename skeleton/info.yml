@@ -4,12 +4,12 @@ caption: A feature-rich Gradle-based skeleton for Java and/or Groovy projects.
 version:
   major: 0
   minor: 3
-  patch: 2
+  patch: 3
 
 minimumRequiredBootHub:
   major: 0
   minor: 3
-  patch: 3
+  patch: 4
 
 homepage: http://java-groovy.boothub.org
 
