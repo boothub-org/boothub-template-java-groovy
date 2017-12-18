@@ -1,8 +1,8 @@
 {{~def 'prjId' (asJavaId ghProjectId)~}}
 {{~#def 'githubProjectUrl'}}https://github.com/{{ghProjectOwner}}/{{ghProjectId}}{{/def~}}
 {{~#def 'githubRepoUrl'}}{{githubProjectUrl}}.git{{/def~}}
-{{~def 'siteUrl' (default projectPageUrl githubProjectUrl)}}
-{{#def 'docBaseUrl'}}{{#if ghPagesCname}}http://{{ghPagesCname}}{{else}}https://{{ghProjectOwner}}.github.io/{{ghProjectId}}{{/if}}{{/def}}
+{{~def 'siteUrl' (default projectPageUrl githubProjectUrl)~}}
+{{~#def 'docBaseUrl'}}{{#if ghPagesCname}}http://{{ghPagesCname}}{{else}}https://{{ghProjectOwner}}.github.io/{{ghProjectId}}{{/if}}{{/def~}}
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.gradle.plugins.signing.Sign
 {{~#if publishDoc}}
@@ -18,6 +18,16 @@ buildscript {
     }
     dependencies {
         classpath 'org.kohsuke:github-api:1.90'
+    }
+}
+{{~/if}}
+{{~#if useClover}}
+buildscript {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.github.bmuschko:gradle-clover-plugin:-SNAPSHOT'
     }
 }
 {{~/if}}
@@ -41,8 +51,9 @@ plugins {
     {{#if checkLicenseHeader}}id "com.github.hierynomus.license" version "0.12.1"{{/if}}
     id "net.saliman.properties" version "1.4.6"
     id 'com.github.jk1.dependency-license-report' version '0.3.8'
-    {{#if useClover~}}id "com.bmuschko.clover" version "2.1.3"{{~/if}}
+    {{#if useClover~}}// id "com.bmuschko.clover" version "2.1.4"{{~/if}}
 }
+{{#if useClover~}}apply plugin: 'com.bmuschko.clover'{{~/if}}
 
 project.version.with {
     major = {{prjId}}VersionMajor as int
@@ -55,12 +66,6 @@ project.version.with {
 }
 ext.{{prjId}}Version = project.version as String
 ext.{{prjId}}Tag = Boolean.valueOf({{prjId}}ReleaseBuild) ? "v$ext.{{prjId}}Version" : 'master'
-
-repositories {
-  jcenter()
-  mavenCentral()
-  maven { url 'https://jitpack.io' }
-}
 
 def pomConfig = {
     url "{{githubProjectUrl}}"
