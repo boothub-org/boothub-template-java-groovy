@@ -1,5 +1,5 @@
 = {{projectName}}
-:author: {{pom.developers.[0].name}}
+:author: {{developers.[0].name}}
 :revnumber: {project-version}
 :toc: left
 :toclevels: 3
