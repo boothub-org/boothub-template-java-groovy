@@ -21,16 +21,6 @@ buildscript {
     }
 }
 {{~/if}}
-{{~#if useClover}}
-buildscript {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-    dependencies {
-        classpath 'com.github.bmuschko:gradle-clover-plugin:-SNAPSHOT'
-    }
-}
-{{~/if}}
 
 plugins {
     {{#ifb (and useJava (not useGroovy))}}id 'java'{{/ifb}}
@@ -51,9 +41,8 @@ plugins {
     {{#if checkLicenseHeader}}id "com.github.hierynomus.license" version "0.12.1"{{/if}}
     id "net.saliman.properties" version "1.4.6"
     id 'com.github.jk1.dependency-license-report' version '0.3.8'
-    {{#if useClover~}}// id "com.bmuschko.clover" version "2.1.4"{{~/if}}
+    {{#if useClover~}}id "com.bmuschko.clover" version "2.2.0"{{~/if}}
 }
-{{#if useClover~}}apply plugin: 'com.bmuschko.clover'{{~/if}}
 
 project.version.with {
     major = {{prjId}}VersionMajor as int
