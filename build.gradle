@@ -1,5 +1,6 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.gradle.plugins.signing.Sign
+import javax.swing.*
 
 plugins {
     id 'groovy'
@@ -281,35 +282,17 @@ def configureGroovydoc(task) {
   }
 }
 
-def readFromConsole(prompt) {
-    readFromConsole('', prompt)
-}
-def readFromConsole(header, prompt) {
-    readFromConsole(header, prompt, false)
-}
-def readPasswordFromConsole(prompt) {
-    readPasswordFromConsole(prompt, true)
-}
-def readPasswordFromConsole(header, prompt) {
-    readFromConsole(header, prompt, true)
-}
-def readFromConsole(header, prompt, isPassword) {
-    def console = System.console()
-    if (console) {
-        if(header) {
-            console.printf "\n\n# $header\n"
-        }
-        String value = null;
-        while(!value?.trim()) {
-            def val = console."read${isPassword ? 'Password' : 'Line'}"("> $prompt: ")
-            if(val) {
-                value = new String(val)
-            }
-        }
-        return value
-    } else {
-      throw new GradleException("Cannot get console. Try running gradle with the '--no-daemon' option")
-    }
+def readPasswordFromConsole(title, prompt) {
+    JPanel panel = new JPanel()
+    JLabel label = new JLabel(prompt)
+    JPasswordField pass = new JPasswordField(24)
+    panel.add(label)
+    panel.add(pass)
+    def options = ["OK", "Cancel"] as Object[]
+    int option = JOptionPane.showOptionDialog(null, panel, title,
+            JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null)
+    if(option != 0) throw new InvalidUserDataException("Operation cancelled by the user.")
+    new String(pass.password)
 }
 
 def isPublishTask(task) {
