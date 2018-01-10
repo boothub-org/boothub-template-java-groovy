@@ -1,6 +1,19 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.gradle.plugins.signing.Sign
+import org.yaml.snakeyaml.Yaml
 import javax.swing.*
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'org.yaml:snakeyaml:1.19'
+    }
+}
 
 plugins {
     id 'groovy'
@@ -330,3 +343,13 @@ bintray {
         }
     }
 }
+
+task checkInfoVersion {
+    doLast {
+        def props = new Yaml().load(new FileInputStream('skeleton/info.yml'))
+        def infoVersion = props?.version?.major + '.' + props?.version?.minor + '.' + props?.version?.patch
+        def prjVersion = boothubTemplateJavaGroovyVersionMajor + '.' + boothubTemplateJavaGroovyVersionMinor + '.' + boothubTemplateJavaGroovyVersionPatch
+        if(infoVersion != prjVersion) throw new InvalidUserDataException("Different versions found in gradle.properties ($prjVersion) and info.yml ($infoVersion).")
+    }
+}
+processResources.dependsOn checkInfoVersion
