@@ -3,12 +3,12 @@
 
 NOTE: The source code is available on https://github.com/boothub-org/boothub-template-java-groovy[GitHub].
 
-boothub-template-java-groovy is licensed under the Apache-2.0 license.
+The Java/Groovy BootHub template is licensed under the Apache-2.0 license.
 Click on the icon below to read the license file:
 
 image::license.png[role="thumb" link="{blob-root}/LICENSE"]
 
-boothub-template-java-groovy is a feature-rich skeleton for Java and/or Groovy projects with Gradle build file.
+The Java/Groovy BootHub template allows you to create Java and/or Groovy project skeletons with feature-rich Gradle build files.
 
 Features:
 
@@ -20,7 +20,7 @@ Features:
  - automatic build and test via https://travis-ci.com/[Travis CI]
  - support for http://asciidoc.org/[AsciiDoc] documentation
  - automatic publishing of versioned AsciiDoc and javadoc documentation to https://help.github.com/articles/user-organization-and-project-pages/#project-pages[GitHub Project Pages]
- - static code analysis with http://findbugs.sourceforge.net/[findbugs]
+ - static code analysis with http://findbugs.sourceforge.net/[FindBugs]
  - code coverage with https://www.atlassian.com/software/clover[Clover]
  - jar signing
  - jar publishing to JCenter (and from there to Maven Central)

@@ -1,22 +1,186 @@
 [[getting_started]]
 = Getting Started
 
-CAUTION: You need Java 8 or newer in order to use boothub-template-java-groovy.
+You can generate a project skeleton based on the Java/Groovy template by using the
+http://boothub.org/app#/home/true/https%3A%2F%2Fgithub.com%2Fboothub-org%2Fboothub-template-java-groovy%2Freleases%2Fdownload%2Fv{project-version}%2Fjava-groovy-{project-version}.zip[BootHub GUI, role="external", window="_blank"]
+or the
+http://boothub.org/app#/cli[BootHub CLI, role="external", window="_blank"].
 
-boothub-template-java-groovy is available in Maven Central and JCenter.
+After providing the http://doc.boothub.org/releases/latest/#template-independent-data[template-independent data], you need to configure the
+https://maven.apache.org/guides/mini/guide-naming-conventions.html[Maven groupId] of your project:
 
-[subs="attributes",options="nowrap",title="Maven"]
-----
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
 
-&lt;dependency&gt;
-    &lt;groupId&gt;{project-group}&lt;/groupId&gt;
-    &lt;artifactId&gt;{project-name}&lt;/artifactId&gt;
-    &lt;version&gt;{project-version}&lt;/version&gt;
-&lt;/dependency&gt;
-----
+Maven groupId: <span class="yellow">org.myproject</span>
 
-[subs="attributes",options="nowrap",title="Gradle"]
-----
+</pre>
+</div>
+<pre>
 
-compile '{project-group}:{project-name}:{project-version}'
-----
+</pre>
+++++
+
+After deciding whether you want a single-module or a multi-module project, you need to configure the artifacts and packages
+and you are also allowed to specify a main class for your project.
+
+The example below illustrates the configuration of a single-module project:
+
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Is this a multi-module project? (Y/N): <span class="yellow">n</span>
+Artifact ID [my-project]:
+Base package [org.myproject]:
+Do you want to designate a main application class for your project? (Y/N): <span class="yellow">y</span>
+Application main class name [MyProjectMain]:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+++++
+
+In case of a multi-module project, you need to configure each module and specify the module interdependencies, as shown in the example below:
+
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Is this a multi-module project? (Y/N): <span class="yellow">y</span>
+Module name / Artifact ID: <span class="yellow">myproject-core</span>
+Base package [org.myproject.core]:
+More modules? (Y/N): <span class="yellow">y</span>
+Module name / Artifact ID: <span class="yellow">myproject-api</span>
+Base package [org.myproject.api]:
+More modules? (Y/N): <span class="yellow">y</span>
+Module name / Artifact ID: <span class="yellow">myproject-demo</span>
+Base package [org.myproject.demo]:
+More modules? (Y/N): <span class="yellow">n</span>
+Module interdependencies
+Modules on which myproject-core depends:
+  1: myproject-api
+  2: myproject-demo
+Enter your choices as comma-separated values: <span class="yellow">1</span>
+Modules on which myproject-api depends:
+  1: myproject-demo
+Enter your choices as comma-separated values:
+Modules on which myproject-demo depends:
+  1: myproject-core
+  2: myproject-api
+Enter your choices as comma-separated values: <span class="yellow">1,2</span>
+Do you want to designate a main application class for your project? (Y/N): <span class="yellow">y</span>
+Module containing the main class:
+  1: myproject-core
+  2: myproject-api
+  3: myproject-demo
+Enter your choice: <span class="yellow">3</span>
+Application main class name [MyProjectMain]: <span class="yellow">MyDemo</span>
+
+</pre>
+</div>
+<pre>
+
+</pre>
+++++
+
+The next step is to provide information about the project developers:
+
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Developers
+Developer ID [siordache]:
+Developer name [Serban Iordache]:
+Developer email (optional):
+More developers? (Y/N) [N]:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+++++
+
+You can choose to generate a Java project, a Groovy project, or a project that uses both Java and Groovy:
+
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Language:
+* 1: only Java
+  2: only Groovy
+  3: Java and Groovy
+Enter your choice:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+++++
+
+The template lets you select the test framework to be used. You can choose between JUnit, Spock or a combination of these two.
+
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Test Framework:
+  1: only JUnit
+* 2: only Spock
+  3: JUnit and Spock
+Enter your choice:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+++++
+
+You can also specify if your project needs support for documentation:
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Publish documentation to GitHub Pages? (Y/N) [Y]:
+Custom domain name for GitHub Pages site (optional)
+                        (Example: my-project.mydomain.org):
+Use AsciiDoc? (Y/N) [Y]:
+
+</pre>
+</div>
+++++
+
+The template can instruct https://github.com/marketplace/travis-ci[Travis] to automatically publish your documentation to
+https://help.github.com/articles/what-is-github-pages/[GitHub Pages] by executing a Gradle task created for this job.
+
+By default, the GitHub Pages site will be accessible at the standard URL for https://help.github.com/articles/user-organization-and-project-pages/#project-pages[Project Pages]
+(which has the form `\https://<username>.github.io/<projectname>`), but you can specify a custom domain for your GitHub Pages site.
+See the <<doc_publishing>> section for more details.
+
+If you choose to use AsciiDoc, the template will generate a documentation skeleton tailored to your project.
+
+Finally, you can specify if the generated Gradle script should include additional tasks such as checking the presence of license headers,
+performing static code analysis with http://findbugs.sourceforge.net/[FindBugs] or code coverage with https://www.atlassian.com/software/clover[Clover]:
+
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Check license header? (Y/N) [Y]:
+Use Findbugs? (Y/N) [Y]:
+Use Clover? (Y/N) [Y]:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+++++

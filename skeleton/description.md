@@ -1,4 +1,4 @@
-A feature-rich skeleton for Java and/or Groovy projects with Gradle build file.
+A template for Java and/or Groovy projects with a feature-rich Gradle build file.
 
 Features:
  - single or multi-module project
@@ -10,6 +10,7 @@ Features:
  - automatic build and test via [Travis CI](https://travis-ci.com/)
  - support for [AsciiDoc](http://asciidoc.org/) documentation
  - automatic publishing of versioned AsciiDoc and javadoc documentation to [GitHub Project Pages](https://help.github.com/articles/user-organization-and-project-pages/#project-pages)
- - static code analysis with [findbugs](http://findbugs.sourceforge.net/)
+ - static code analysis with [FindBugs](http://findbugs.sourceforge.net/)
+ - code coverage with [Clover](https://www.atlassian.com/software/clover)
  - jar signing
  - jar publishing to JCenter (and from there to Maven Central)

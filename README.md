@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/boothub-org/boothub-template-java-groovy/master.svg?label=Build)](https://travis-ci.org/boothub-org/boothub-template-java-groovy)
 ## Java-Groovy template ##
 
-A feature-rich skeleton for Java and/or Groovy projects with Gradle build file.
+A template for Java and/or Groovy projects with a feature-rich Gradle build file.
 
 Features:
  - single or multi-module project

@@ -24,7 +24,7 @@ cd {{ghProjectId}}
 *Eclipse*
 
 - start the Eclipse IDE
-{{#ifb (or useGroovy useSpock)~}}- install the Groovy plugin; update site: http://dist.springsource.org/snapshot/GRECLIPSE/e4.6/{{~/ifb}}
+{{#ifb (or useGroovy useSpock)~}}- install the https://github.com/groovy/groovy-eclipse/wiki#releases[Groovy plugin]{{~/ifb}}
 - install a recent version of https://projects.eclipse.org/projects/tools.buildship[Buildship].
 - import the project using the Gradle Project wizard
 
