@@ -53,6 +53,8 @@ repositories {
 def pomConfig = {
     url "https://github.com/boothub-org/boothub-template-java-groovy"
     developers {
+        id "siordache"
+        name "Serban Iordache"
     }
     scm {
         connection "https://github.com/boothub-org/boothub-template-java-groovy.git"

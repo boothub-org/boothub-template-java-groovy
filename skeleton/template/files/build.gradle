@@ -60,7 +60,7 @@ ext.{{prjId}}Tag = Boolean.valueOf({{prjId}}ReleaseBuild) ? "v$ext.{{prjId}}Vers
 def pomConfig = {
     url "{{githubProjectUrl}}"
     developers {
-        {{~#each pom.developers}}
+        {{~#each developers}}
         developer {
             id "{{id}}"
             name "{{name}}"
