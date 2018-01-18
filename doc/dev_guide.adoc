@@ -1,9 +1,16 @@
 [[dev_guide]]
 = Developer Guide
 
+This section is for developers who want to fix bugs or change the functionality of the Java/Groovy template.
+
+TIP: Read about http://doc.boothub.org/releases/latest/#Templates[writing BootHub templates] before starting to change the Java/Groovy template.
+
+The Java/Groovy template comes with a suite of tests that generate skeletons with various flag combinations and check their validity.
+You should update these tests and add new ones according to the changes you make.
+
 *Command Line Build*
 
-boothub-template-java-groovy is built with http://www.gradle.org[Gradle] and requires JDK 8 or higher.
+The Java/Groovy template is built with http://www.gradle.org[Gradle] and requires JDK 8 or higher.
 Clone the GitHub repository, `cd` into the top directory and start the build:
 
 [source]
