@@ -18,3 +18,5 @@ Features:
  - static code analysis with [findbugs](http://findbugs.sourceforge.net/)
  - jar signing
  - jar publishing to JCenter (and from there to Maven Central)
+
+Make sure to read the [documentation](http://java-groovy.boothub.org) before using this template.
