@@ -37,6 +37,15 @@
 <li><a href="#asciidoc">AsciiDoc</a></li>
 </ul>
 </li>
+<li><a href="#_license_header_check">License header check</a></li>
+<li><a href="#_findbugs">Findbugs</a></li>
+<li><a href="#_testing">Testing</a></li>
+<li><a href="#_code_coverage">Code coverage</a></li>
+<li><a href="#_publishing_to_jcenter_and_maven_central">Publishing to JCenter and Maven Central</a>
+<ul class="sectlevel3">
+<li><a href="#_credentials">Credentials</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#dev_guide">Developer Guide</a></li>
@@ -305,7 +314,7 @@ Use Clover? (Y/N) [Y]:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gradle build</pre>
+<pre>gradlew build</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -317,7 +326,7 @@ Also, let us consider that you specified that the project should have a main app
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>gradle installDist</pre>
+<pre>gradlew installDist</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -378,7 +387,7 @@ The names of these variables are prefixed by the camelCase representation of the
 <p>By editing the values of these variables you can change the version of your project.</p>
 </div>
 <div class="paragraph">
-<p>For example, to bump your project version to <code>1.2.3-SNAPSHOT</code> your <code>gradle.properties</code> should contain:</p>
+<p>For example, to bump your project version to <code>1.2.3-SNAPSHOT</code>, your <code>gradle.properties</code> should contain:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -542,7 +551,163 @@ as described in the last of the step of <a href="https://help.github.com/article
 </div>
 <div class="sect3">
 <h4 id="asciidoc">AsciiDoc</h4>
+<div class="paragraph">
+<p>The template generates in the <code>doc</code> directory a documentation skeleton tailored to your project.
+The information already available in this generated documentation include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the author of the documentation (by default, the first person in the developer list)</p>
+</li>
+<li>
+<p>the location of the source code on GitHub</p>
+</li>
+<li>
+<p>the location of the javadoc/groovydoc</p>
+</li>
+<li>
+<p>project licensing information (including a link to the license file)</p>
+</li>
+<li>
+<p>java version requirements</p>
+</li>
+<li>
+<p>info about the artifacts of this project and how other projects can use them via Maven or Gradle</p>
+</li>
+<li>
+<p>info for developers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>how to build the project</p>
+</li>
+<li>
+<p>how to configure the project in Eclipse or IntelliJ Idea</p>
+</li>
+<li>
+<p>how to configure the credentials needed to publish artifacts to Bintray</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_license_header_check">License header check</h3>
+<div class="paragraph">
+<p>If you enabled the license header check, your source files must include the header provided in the <code>license-header.txt</code> file.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/hierynomus/license-gradle-plugin">license-gradle-plugin</a> for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_findbugs">Findbugs</h3>
+<div class="paragraph">
+<p>If you enabled FindBugs, the gradle script will use the <a href="https://docs.gradle.org/current/userguide/findbugs_plugin.html">FindBugs plugin</a>
+to perform quality checks during the build.</p>
+</div>
+<div class="paragraph">
+<p>In the file <code>findbugsExclude.xml</code> you can configure which issues to exclude from being reported.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing">Testing</h3>
+<div class="paragraph">
+<p>During the build, the gradle script executes your JUnit and Spock tests.</p>
+</div>
+<div class="paragraph">
+<p>You can find the test reports in the <code>build/reports/test</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>Spock test reports are also available in the <code>build/spock-reports</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_code_coverage">Code coverage</h3>
+<div class="paragraph">
+<p>The gradle script uses the <a href="https://github.com/bmuschko/gradle-clover-plugin">Clover plugin</a> to generate a code coverage report.</p>
+</div>
+<div class="paragraph">
+<p>After executing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gradlew cloverGenerateReport</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you will find the code coverage reports in the <code>build/reports/clover</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_publishing_to_jcenter_and_maven_central">Publishing to JCenter and Maven Central</h3>
+<div class="paragraph">
+<p>The Gradle task <code>bintrayUpload</code> lets you publish your artifacts to <a href="https://bintray.com/">Bintray</a>.
+You can then <a href="https://bintray.com/docs/usermanual/uploads/uploads_centralrepositories.html#_including_your_package_in_jcenter">include your packages in JCenter</a>
+and <a href="https://bintray.com/docs/usermanual/uploads/uploads_syncingwiththirdpartyplatforms.html#_syncing_artifacts_with_maven_central">synchronize them with Maven Central</a>.</p>
+</div>
+<div class="paragraph">
+<p>Before being able to execute the <code>bintrayUpload</code> task, you need to configure your credentials.</p>
+</div>
+<div class="sect3">
+<h4 id="_credentials">Credentials</h4>
+<div class="paragraph">
+<p>Your Gradle build script uses the <a href="https://github.com/stevesaliman/gradle-properties-plugin">gradle-properties-plugin</a>,
+which allows you to configure additional project properties in the <code>gradle-local.properties</code> file.</p>
+</div>
+<div class="paragraph">
+<p>This is the file in which you should configure your credentials.
+Since <code>gradle-local.properties</code> is already listed in your project&#8217;s <code>.gitignore</code> file, your credentials will not be committed to git.</p>
+</div>
+<div class="paragraph">
+<p>To create this file you can simply copy the provided template file <code>gradle-local-template.properties</code> to <code>gradle-local.properties</code>.
+The content of this file is shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>signingKeyId = A0B1C2D3
+signingSecretKeyRingFile = C:/dev/gpg/jsmith.gpg
 
+bintrayUser = jsmith
+bintrayKey = a0b1c2d3e4f5a0b1c2d3e4f5a0b1c2d3e4f5a0b1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You need to configure the appropriate values for the above properties, which are used for signing your artifacts and for granting you access to Bintray.</p>
+</div>
+<div class="paragraph">
+<p>The signatory credentials consist of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the public key ID (an 8 character hexadecimal string)</p>
+</li>
+<li>
+<p>the absolute path to the secret key ring file containing your private key</p>
+</li>
+<li>
+<p>the passphrase used to protect your private key</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The passphrase of your private key is a very sesnsitive information, therefore it is not stored in the <code>gradle-local.properties</code>.
+Instead, Gradle will ask you to enter it each time you execute the <code>bintrayUpload</code> task.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://www.gnupg.org/documentation/howtos.html">GnuPG documentation</a> and the
+<a href="https://docs.gradle.org/current/userguide/signing_plugin.html">Gradle signing plugin</a> for details on how to create and configure your signatures.</p>
+</div>
+<div class="paragraph">
+<p>The Bintray credentials consist of your Bintray user name and your
+<a href="https://bintray.com/docs/usermanual/interacting/interacting_interacting.html#anchorAPIKEY">Bintray API Key</a>.
+See the documentation of the <a href="https://github.com/bintray/gradle-bintray-plugin">gradle-bintray-plugin</a> for more details.</p>
+</div>
 </div>
 </div>
 </div>
@@ -551,10 +716,29 @@ as described in the last of the step of <a href="https://help.github.com/article
 <h2 id="dev_guide">Developer Guide</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>This section is for developers who want to fix bugs or change the functionality of the Java/Groovy template.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read about <a href="http://doc.boothub.org/releases/latest/#Templates">writing BootHub templates</a> before starting to change the Java/Groovy template.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Java/Groovy template comes with a suite of tests that generate skeletons with various flag combinations and check their validity.
+You should update these tests and add new ones according to the changes you make.</p>
+</div>
+<div class="paragraph">
 <p><strong>Command Line Build</strong></p>
 </div>
 <div class="paragraph">
-<p>boothub-template-java-groovy is built with <a href="http://www.gradle.org">Gradle</a> and requires JDK 8 or higher.
+<p>The Java/Groovy template is built with <a href="http://www.gradle.org">Gradle</a> and requires JDK 8 or higher.
 Clone the GitHub repository, <code>cd</code> into the top directory and start the build:</p>
 </div>
 <div class="listingblock">
