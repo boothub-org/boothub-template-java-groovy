@@ -17,6 +17,6 @@ Features:
  - automatic publishing of versioned AsciiDoc and javadoc documentation to [GitHub Project Pages](https://help.github.com/articles/user-organization-and-project-pages/#project-pages)
  - static code analysis with [findbugs](http://findbugs.sourceforge.net/)
  - jar signing
- - jar publishing to JCenter (and from there to Maven Central)
+ - jar publishing to JCenter and Maven Central
 
 Make sure to read the [documentation](http://java-groovy.boothub.org) before using this template.

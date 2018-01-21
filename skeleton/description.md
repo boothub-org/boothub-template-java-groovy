@@ -13,4 +13,4 @@ Features:
  - static code analysis with [FindBugs](http://findbugs.sourceforge.net/)
  - code coverage with [Clover](https://www.atlassian.com/software/clover)
  - jar signing
- - jar publishing to JCenter (and from there to Maven Central)
+ - jar publishing to JCenter and Maven Central

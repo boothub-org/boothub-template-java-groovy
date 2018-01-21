@@ -94,8 +94,8 @@ The next step is to provide information about the project developers:
 <pre class="lime" style="margin-left: 20px;">
 
 Developers
-Developer ID [siordache]:
-Developer name [Serban Iordache]:
+Developer ID [jsmith]:
+Developer name [John Smith]:
 Developer email (optional):
 More developers? (Y/N) [N]:
 
