@@ -296,9 +296,6 @@ clover {
 {{~/if}}
 {{~/encloseIf}}
 
-def gitIgnore = file(".gitignore").readLines()
-def gitIgnoreDirs = gitIgnore*.trim().findAll { !it.startsWith("#") && it.endsWith("/") }
-
 {{~#if useAsciiDoc}}
 asciidoctor {
   sourceDir = file("doc")
