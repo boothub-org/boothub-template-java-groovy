@@ -2,9 +2,9 @@
 = Getting Started
 
 You can generate a project skeleton based on the Java/Groovy template by using the
-http://boothub.org/app#/home/true/https%3A%2F%2Fgithub.com%2Fboothub-org%2Fboothub-template-java-groovy%2Freleases%2Fdownload%2Fv{project-version}%2Fjava-groovy-{project-version}.zip[BootHub GUI, role="external", window="_blank"]
+https://boothub.org/app#/home/true/https%3A%2F%2Fgithub.com%2Fboothub-org%2Fboothub-template-java-groovy%2Freleases%2Fdownload%2Fv{project-version}%2Fjava-groovy-{project-version}.zip[BootHub GUI, role="external", window="_blank"]
 or the
-http://boothub.org/app#/cli[BootHub CLI, role="external", window="_blank"].
+https://boothub.org/app#/cli[BootHub CLI, role="external", window="_blank"].
 
 After providing the http://doc.boothub.org/releases/latest/#template-independent-data[template-independent data], you need to configure the
 https://maven.apache.org/guides/mini/guide-naming-conventions.html[Maven groupId] of your project:
