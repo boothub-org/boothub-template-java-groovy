@@ -3,13 +3,13 @@ name: Java / Groovy
 caption: A feature-rich Gradle-based skeleton for Java and/or Groovy projects.
 version:
   major: 0
-  minor: 3
-  patch: 7
+  minor: 4
+  patch: 0
 
 minimumRequiredBootHub:
   major: 0
-  minor: 3
-  patch: 6
+  minor: 4
+  patch: 0
 
 homepage: http://java-groovy.boothub.org
 
