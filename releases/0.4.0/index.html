@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<meta name="author" content="Serban Iordache">
+<title>The Java/Groovy BootHub Template</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="./asciidoctor.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="./coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>The Java/Groovy BootHub Template</h1>
+<div class="details">
+<span id="author" class="author">Serban Iordache</span><br>
+<span id="revnumber">version 0.4.0</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#getting_started">Getting Started</a></li>
+<li><a href="#user_guide">User Guide</a>
+<ul class="sectlevel2">
+<li><a href="#build">Build</a></li>
+<li><a href="#idea">IntelliJ Idea</a></li>
+<li><a href="#eclipse">Eclipse</a></li>
+<li><a href="#versioning">Versioning</a></li>
+<li><a href="#travis">Travis CI</a></li>
+<li><a href="#doc_publishing">Automatic documentation publishing</a>
+<ul class="sectlevel3">
+<li><a href="#_custom_domain_name">Custom domain name</a></li>
+<li><a href="#asciidoc">AsciiDoc</a></li>
+</ul>
+</li>
+<li><a href="#_license_header_check">License header check</a></li>
+<li><a href="#_findbugs">Findbugs</a></li>
+<li><a href="#_testing">Testing</a></li>
+<li><a href="#_code_coverage">Code coverage</a></li>
+<li><a href="#_publishing_to_jcenter_and_maven_central">Publishing to JCenter and Maven Central</a>
+<ul class="sectlevel3">
+<li><a href="#_credentials">Credentials</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#dev_guide">Developer Guide</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The source code is available on <a href="https://github.com/boothub-org/boothub-template-java-groovy">GitHub</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Java/Groovy BootHub template is licensed under the Apache-2.0 license.
+Click on the icon below to read the license file:</p>
+</div>
+<div class="imageblock thumb">
+<div class="content">
+<a class="image" href="https://github.com/boothub-org/boothub-template-java-groovy/blob/v0.4.0/LICENSE"><img src="data:image/png;base64,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" alt="license"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>The Java/Groovy BootHub template allows you to create Java and/or Groovy project skeletons with feature-rich Gradle build files.</p>
+</div>
+<div class="paragraph">
+<p>Features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>single or multi-module project</p>
+</li>
+<li>
+<p>versioning</p>
+</li>
+<li>
+<p>license header check</p>
+</li>
+<li>
+<p>support for Eclipse and IntelliJ Idea</p>
+</li>
+<li>
+<p>testing with JUnit and/or Spock</p>
+</li>
+<li>
+<p>automatic build and test via <a href="https://travis-ci.com/">Travis CI</a></p>
+</li>
+<li>
+<p>support for <a href="http://asciidoc.org/">AsciiDoc</a> documentation</p>
+</li>
+<li>
+<p>automatic publishing of versioned AsciiDoc and javadoc documentation to <a href="https://help.github.com/articles/user-organization-and-project-pages/#project-pages">GitHub Project Pages</a></p>
+</li>
+<li>
+<p>static code analysis with <a href="http://findbugs.sourceforge.net/">FindBugs</a></p>
+</li>
+<li>
+<p>code coverage with <a href="https://www.atlassian.com/software/clover">Clover</a></p>
+</li>
+<li>
+<p>jar signing</p>
+</li>
+<li>
+<p>jar publishing to JCenter and Maven Central</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting_started">Getting Started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can generate a project skeleton based on the Java/Groovy template by using the
+<a href="https://boothub.org/app#/home/true/https%3A%2F%2Fgithub.com%2Fboothub-org%2Fboothub-template-java-groovy%2Freleases%2Fdownload%2Fv0.4.0%2Fjava-groovy-0.4.0.zip" class="external" target="_blank">BootHub GUI</a>
+or the
+<a href="https://boothub.org/app#/cli" class="external" target="_blank">BootHub CLI</a>.</p>
+</div>
+<div class="paragraph">
+<p>After providing the <a href="http://doc.boothub.org/releases/latest/#template-independent-data">template-independent data</a>, you need to configure the
+<a href="https://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven groupId</a> of your project:</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Maven groupId: <span class="yellow">org.myproject</span>
+
+</pre>
+</div>
+<pre>
+
+</pre>
+<div class="paragraph">
+<p>After deciding whether you want a single-module or a multi-module project, you need to configure the artifacts and packages
+and you are also allowed to specify a main class for your project.</p>
+</div>
+<div class="paragraph">
+<p>The example below illustrates the configuration of a single-module project:</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Is this a multi-module project? (Y/N): <span class="yellow">n</span>
+Artifact ID [my-project]:
+Base package [org.myproject]:
+Do you want to designate a main application class for your project? (Y/N): <span class="yellow">y</span>
+Application main class name [MyProjectMain]:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+<div class="paragraph">
+<p>In case of a multi-module project, you need to configure each module and specify the module interdependencies, as shown in the example below:</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Is this a multi-module project? (Y/N): <span class="yellow">y</span>
+Module name / Artifact ID: <span class="yellow">myproject-core</span>
+Base package [org.myproject.core]:
+More modules? (Y/N): <span class="yellow">y</span>
+Module name / Artifact ID: <span class="yellow">myproject-api</span>
+Base package [org.myproject.api]:
+More modules? (Y/N): <span class="yellow">y</span>
+Module name / Artifact ID: <span class="yellow">myproject-demo</span>
+Base package [org.myproject.demo]:
+More modules? (Y/N): <span class="yellow">n</span>
+Module interdependencies
+Modules on which myproject-core depends:
+  1: myproject-api
+  2: myproject-demo
+Enter your choices as comma-separated values: <span class="yellow">1</span>
+Modules on which myproject-api depends:
+  1: myproject-demo
+Enter your choices as comma-separated values:
+Modules on which myproject-demo depends:
+  1: myproject-core
+  2: myproject-api
+Enter your choices as comma-separated values: <span class="yellow">1,2</span>
+Do you want to designate a main application class for your project? (Y/N): <span class="yellow">y</span>
+Module containing the main class:
+  1: myproject-core
+  2: myproject-api
+  3: myproject-demo
+Enter your choice: <span class="yellow">3</span>
+Application main class name [MyProjectMain]: <span class="yellow">MyDemo</span>
+
+</pre>
+</div>
+<pre>
+
+</pre>
+<div class="paragraph">
+<p>The next step is to provide information about the project developers:</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Developers
+Developer ID [jsmith]:
+Developer name [John Smith]:
+Developer email (optional):
+More developers? (Y/N) [N]:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+<div class="paragraph">
+<p>You can choose to generate a Java project, a Groovy project, or a project that uses both Java and Groovy:</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Language:
+* 1: only Java
+  2: only Groovy
+  3: Java and Groovy
+Enter your choice:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+<div class="paragraph">
+<p>The template lets you select the test framework to be used. You can choose between JUnit, Spock or a combination of these two.</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Test Framework:
+  1: only JUnit
+* 2: only Spock
+  3: JUnit and Spock
+Enter your choice:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+<div class="paragraph">
+<p>You can also specify if your project needs support for documentation:</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Publish documentation to GitHub Pages? (Y/N) [Y]:
+Custom domain name for GitHub Pages site (optional)
+                        (Example: my-project.mydomain.org):
+Use AsciiDoc? (Y/N) [Y]:
+
+</pre>
+</div>
+<div class="paragraph">
+<p>The template can instruct <a href="https://github.com/marketplace/travis-ci">Travis</a> to automatically publish your documentation to
+<a href="https://help.github.com/articles/what-is-github-pages/">GitHub Pages</a> by executing a Gradle task created for this job.</p>
+</div>
+<div class="paragraph">
+<p>By default, the GitHub Pages site will be accessible at the standard URL for <a href="https://help.github.com/articles/user-organization-and-project-pages/#project-pages">Project Pages</a>
+(which has the form <code>https://&lt;username&gt;.github.io/&lt;projectname&gt;</code>), but you can specify a custom domain for your GitHub Pages site.
+See the <a href="#doc_publishing">Automatic documentation publishing</a> section for more details.</p>
+</div>
+<div class="paragraph">
+<p>If you choose to use AsciiDoc, the template will generate a documentation skeleton tailored to your project.</p>
+</div>
+<div class="paragraph">
+<p>Finally, you can specify if the generated Gradle script should include additional tasks such as checking the presence of license headers,
+performing static code analysis with <a href="http://findbugs.sourceforge.net/">FindBugs</a> or code coverage with <a href="https://www.atlassian.com/software/clover">Clover</a>:</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Check license header? (Y/N) [Y]:
+Use Findbugs? (Y/N) [Y]:
+Use Clover? (Y/N) [Y]:
+
+</pre>
+</div>
+<pre>
+
+</pre>
+</div>
+</div>
+<div class="sect1">
+<h2 id="user_guide">User Guide</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="build">Build</h3>
+<div class="paragraph">
+<p>After generating the project skeleton and creating a working copy on your computer, you can build the project with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gradlew build</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let us consider that your project is called <code>my-project</code> and consists of three modules: <code>myproject-core</code>, <code>myproject-api</code> and <code>myproject-demo</code>.
+Also, let us consider that you specified that the project should have a main application class named <code>MyDemo</code> in the <code>myproject-demo</code> module.</p>
+</div>
+<div class="paragraph">
+<p>Then, you can build an uncompressed distribution by executing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gradlew installDist</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running the start script found in the <code>myproject-demo/build/install/myProject/bin</code> directory, the following text should appear on your terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Hello from MyDemo!</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="idea">IntelliJ Idea</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>start the IntelliJ Idea IDE</p>
+</li>
+<li>
+<p>if your project uses Groovy or Spock: make sure that the Groovy plugin is enabled</p>
+</li>
+<li>
+<p>open <em>build.gradle</em></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="eclipse">Eclipse</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>start the Eclipse IDE</p>
+</li>
+<li>
+<p>if your project uses Groovy or Spock: install the <a href="https://github.com/groovy/groovy-eclipse/wiki#releases">Groovy plugin</a></p>
+</li>
+<li>
+<p>install a recent version of <a href="https://projects.eclipse.org/projects/tools.buildship">Buildship</a></p>
+</li>
+<li>
+<p>import the project using the Gradle Project wizard</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="versioning">Versioning</h3>
+<div class="paragraph">
+<p>The file <code>gradle.properties</code> contains variables that are used to create a version string conforming to the <a href="https://semver.org">semantic versioning</a> standard.
+The names of these variables are prefixed by the camelCase representation of the project name, for example:
+<code>myProjectVersionMajor</code>, <code>myProjectVersionMinor</code>, <code>myProjectVersionPatch</code>.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, a boolean variable (named for example <code>myProjectReleaseBuild</code>) is used to specify whether the current build represents a release or a snapshot.</p>
+</div>
+<div class="paragraph">
+<p>By editing the values of these variables you can change the version of your project.</p>
+</div>
+<div class="paragraph">
+<p>For example, to bump your project version to <code>1.2.3-SNAPSHOT</code>, your <code>gradle.properties</code> should contain:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>myProjectVersionMajor = 1
+myProjectVersionMinor = 2
+myProjectVersionPatch = 3
+myProjectReleaseBuild = false</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="travis">Travis CI</h3>
+<div class="paragraph">
+<p>If your project is on GitHub, you will benefit from the <a href="https://travis-ci.com/">Travis</a> configuration and script files generated by BootHub.
+Besides building the project and running the tests, Travis also executes the tasks responsible for publishing the documentation (AsciiDoc und javadoc/groovydoc)
+and for managing the list of release-specific links.</p>
+</div>
+<div class="paragraph">
+<p>In order to allow Travis to take care of your project you need to perform a few actions.
+Some of the steps described below are one-time operations that may be skipped if they have already been executed.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>authorize Travis as OAuth application for your GitHub account (if not already authorized):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>open <a href="https://github.com/marketplace/travis-ci" class="bare">https://github.com/marketplace/travis-ci</a></p>
+</li>
+<li>
+<p>click 'Set up a free trial'</p>
+</li>
+<li>
+<p>in the 'Pricing and Setup' section select 'Open Source'</p>
+</li>
+<li>
+<p>click 'Install it for free'</p>
+</li>
+<li>
+<p>click 'Complete order and begin installation'</p>
+</li>
+<li>
+<p>click 'Authorize travis-ci'</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>create the <code>publishGhPages</code> Personal Access Token on Github (if not already created):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>go to <a href="https://github.com/settings/tokens/new" class="bare">https://github.com/settings/tokens/new</a> to generate the new token (click <a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">here</a> for more details)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>enter <code>publishGhPages</code> as token description</p>
+</li>
+<li>
+<p>select <code>public_repo</code> as scope (or <code>repo</code> if your repository is private)</p>
+</li>
+<li>
+<p>click <code>Generate token</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>save the generated token for future use in a secure place (you will not be able to see it again!)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>activate Travis for your project</p>
+<div class="ulist">
+<ul>
+<li>
+<p>copy the <code>publishGhPages</code> token to clipboard</p>
+</li>
+<li>
+<p>open <a href="https://travis-ci.org" class="bare">https://travis-ci.org</a></p>
+</li>
+<li>
+<p>go to your Travis profile page (https://travis-ci.org/profile/&lt;your-github-username&gt;)</p>
+</li>
+<li>
+<p>find your project in the repository list and activate it (click <code>Sync account</code> and press <code>F5</code> if your project does not appear in the list)</p>
+</li>
+<li>
+<p>go to the Travis Settings page of your project (https://travis-ci.org/&lt;your-github-username&gt;/&lt;your-github-repo&gt;/settings)</p>
+</li>
+<li>
+<p>under <code>Environment Variables</code> add a variable named <code>GH_PAGES_ACCESS_TOKEN</code> with the token value you copied to the clipboard.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>make sure that 'Display value in build log' is OFF</p>
+</li>
+<li>
+<p>click <code>ADD</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Travis is now ready to build your project.
+To trigger a new build you need to make a change to your project and push it to GitHub.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doc_publishing">Automatic documentation publishing</h3>
+<div class="paragraph">
+<p>If Travis is enabled for your GitHub project, it publishes the AsciiDoc and javadoc/groovydoc to <a href="https://help.github.com/articles/user-organization-and-project-pages/#project-pages">GitHub Project Pages</a>.</p>
+</div>
+<div class="paragraph">
+<p>It also publishes and updates the list of release-specific links:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="data:image/png;base64,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" alt="release list">
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>README.md</code> file generated by BootHub contains links to the AsciiDoc and javadoc/groovydoc of the latest release, as well as a link to the list of release-specific links:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUUAAAERCAIAAABjCSLrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASdEVYdFNvZnR3YXJlAEdyZWVuc2hvdF5VCAUAACPlSURBVHhe7Z1tcFTHme9z4/fdbDbZ+3Frv+kLpSpuVXRVtUCcMg42i3kTBslsvMqmNgrlFeuN5WBAbK6BmBffiMU2WBAIGAQE7bIbZSMkHEBojBwJcyuShQELYcmgFyIiYQmEkMRGVXOffjunu+fMSBo0g6b5/+rUqZ4+T/fp09O/0+eMRme+FAYAuAJ8BsAd4DMA7gCfAXAHw+fsRDLrd19PrUV2imLv3r3Lli37e853v/tdkSCSn/6LN377Pzf8lq9r3Uj/1ZtnfljRIjtaI5l9XlJScuDAAVoLJnn6F7/4RV1dnewmDfgcdZGdwqGBRe/9JOEv3viQNPg6X7uU/ueKz2R3c5Lc5/v37ydVUmtdW1srO0sBn6MuslM4eXl5uZOGr/2k5us/+fBr6/naofRfbjZGZ5L7fN++fSRJaq0PHTokO0sBn6MuslM4fzeZ+Nr60ySAk2vZ3Rx5tMnivffeI0lSbi07SwGfoy6yUzgvTia+uu6DP193+qtr+dqttOxujjzaZEGX96RHyq1lZylSxOeO07dHTv/MykzwIjuFQ+/3d77zHXMd6gx3hlg6dC18LWRvTeCaRj9fQioxkel/+fyP4Z6uyPzkpGV3c2L0wFjW7F05zdKU6PzA2krv3Z2Lh4z4PXv2kB6CcaWbb4bv/v6sSBNx10PEkZadpRjV51OdciOjszood+D8AZkdC8uW8S332+e/DaCqPdxexRKL531r3mKelRz+7PXqP3s99BW+lun3e29SK3t+b+ePP73ms7vh622xYwLTJT2iq4g/fvB+UIxopAwIrkdu58ijNSAPNe5cOCTzA/DelaqOcHs1z/Kh9+72JyXyheDnP/856RHH+uKN8FBbXeyYxK1lVyjG4vPA+f08uf/8gEqz3AvSYj0dA8uW8S2TwOelS5eaa+lzRH7C11/5P9XWsqb1v29euNIU7i+J2DTeRfhsZY5h+f2lwSurlm58fOnGVRfuhod619gBn30wFL4UYgGPh3qDAtgiu5sTdOzMw/p3v8Uprr8dHrh4KCLGXjOfT1n50mc9cvfu3aSHYFzpC8znWpEm4q6HiCMtO0sxHp+zD5DQYorWHT5wgXJPiXR2tXcC9UpJDFtuNIeHDvL0wbbwzY87WOaxofDt/h/zzB9/PCJrkTm6z5SWG8NtN1RtAhXzs/6b4ZGbMowyvQC5U7bQ7iRapr7IrZwXAjhJPp9kCTrmzmqe9YI/fwxcKGEZ1dfk6/A1EULBA53XBkTewIWDPPMgdaFEhkUW9PnTH1f96Y9P/Qlf8/RnHwwOh3717/uuhS/Vy/xCumzuHrgkqxjYz+NZpoIiZT3HvGmTMqsKLw+Hr/drBeW+9nfLrHD3NbVfvQ3/9cT3/02mf9XZd+d6oRVz7MbNcM++FTy94rOm8H9/cMwr69cjd8GRR2tAfX773H6RPnDu9u2P92RTirpP9STrN5GmRGeI5ZxkPrOE0c9+PZJdu3aRHmrd1BfuaxLpumt3ZfpSX/huX99dUf7utTMiXvisIkV+cOTuMyyA03dJ5DSz/ag93r1Wx/bIUx+JHK0SytFbKNdiq8e9z8++5FbweXVxLjBsYU42H6MEN41LSw4His0zfZ/Jf6Vxx+k2CmNVyYJMYy4n91nE81ODMNbbqRZJC+1OVmguok8E9H7n5OSYa+lzTg5PUE4JjZaB+u1PfvOb33yysq29OocNn/ajTz7Jcio6aHiJUuGBc7tYzHaaYNiJgJ0Q2ytYzpNPHj33CQ1GltOhctrZuNT3/if/UkUC+GtS5U7n6tVVT9T1hP9wTeSvJi3DN/flbHjshQ376CTTzfN/uOMxnvNYyZWb5CqLvEbqNoU2sPySK02fXZYFKSZnA50gbrZeZrW1/jF8/WNRdl8X095ug7Zm5ne12vlHr/cNdK2WOedDA8Oho0YpsZbdzYnS5zptJ5aw/AOf3KbZVsSQvSLN3pVTMqe9itVAo1P1c8VV7rNWM/NZ40JPuOeCSH54dUimKTM8dOXYcuKXzUPhXpKc5XKfuczDrb9cvub/FkeJJD/D3WdY3vIzPcxyyjt9ZTD8Bdt66Qs6nuFOyjvTPjTYeipaJTaiIzzGdf/sT7l6rndTLdw2c3xMW6Sox4ZufnxDuHqwTTdQg8nm+eyLrRZ/qveN1XRltSldjWsBHXX6MBa5jSMOgd54kSCkxiypEqfaw1ePzV/MYxbOmbMw+1SHLC4Y+ITOgBRMs8oSFvP8iTZ+Ilh8ks5RrHcP5OQsnDdvcXY2XSLq8IISasMTa07y5YRI7OumU3wDS796mea9UCXLZ1p2Xn6cxzxOng92r2bpa02ySuLmPipS2d03cGXVq7zClaWPv1ypCrL6VzUP9V1uYru4LssI+j67/ETlF97NcKjSbw8zf/DKypfKeI6f/wT5fOc6bwPlNIXukM8ircWsOSmr5HjHKxIE7/Pb9dtISU4l2c2uDEvI53MlIoZF8DR7V6pYWZ6gsgfODdyu372QckQ95/axeK/+nTt3/kyxc+d58vm8SNcwn3maMgdbTr3LktvP/UEFUO7Q1Y7e8HDLLwvf3E5lqR4ZydIqcmdt29Bg84mtrMjOf23oCg931FE91S2DQ+11P2v6Yqj5TPPQEOVdvDHUUs3q8Xe3c1ujtzuznTtlZynGdb3tw3L5/MzEjvg8TNhu3VRbtpBybTeEw9ztfk9L3UC1JMDnQIf1hXeJhNq/ZAmTUFuzcUIaL1lyghInKIfdUJ/QY9ioqd9OA2/GjBm0/vbc5+V422fWsPBvWMyORnEypAFKNdJtoihF61nzFmv7zX688ASJSmvS4PHCTk1RRl9LM1ORtOy6KmPO3gzfub6qsDk0FO67cPLRnDce3X+lj3ymepRmXp3MZyqo0n2XP6U0zcmsYPYbrGz2G4+9XPn4a4dF+tGcdx97TZVlMnes/IfDcr96O8uv94Vv0R55fntTeDhUHhFTeEIeA0fvSbXWe4/67TdX6Vpn/5ISuvI+x8Yo5fMIlmbvSpXMaa+i+JJGivJ7XquHr8kNDe6zSAqfWYqbW8MztQBK0Tw6NBgmGXkGERRJ9Qxd/a3I8wO2n2oduvEp6dxy6l9PtZDQnV+Euxu3GzEirdpjIvrK4159Fml5/0wX5OpG2rip5li2aFfaXD/vKlpMnp60N07Heb0d02e+R3ntTTV8bJ0++MK7REJv+eLFTCptTbMrXe9RmvtMOXsbb7O+4lurOzuqF79HGeGOUyJ+//lPqkWp243vGTVUdfJSWc99e8bRK2w08prCHVUsZsnifZ+crxbxcv3Y6uN8+Q1b/64/3NnwyJL1jyz5CVtI1MGeVauPc5+v8Jjm0GC479OGx1ZfDN0JN52pYKX+3y0Sfx8lVrTQ6aDpd7zCii+aWi+pgqx+SpPPlF51id6S2yyeh4VEPI9RCXayCF+/+Mj3Duv5dO0Q7u5g6RUNoQHakWrzQMfKFV5ZP152N8fsba/HvN5bsriarGzYk7V4/7nb4Y6TPIZd2ZCplOY+s0hKtFVR/PPH2+ntKWFlWQGtHr4uLi7eoSgu/oRcaqtl6doOOrCeT1iSMgev1rAUT4tMnttcsXp17R/CdE1MZakeVpwiVZpFFr9NcyxdW7MixU032NT7Dku/Q/M3nQ9aT23bsa2qZZDSXR9vYTG8DWJ3PC13Z7azmHeVzwT4LC+z2Swtr7c5ps2RPmt26U7yhUmo4Nbp0zILFqgi3sddKmZUn2nRLrn1XfuL3Miht/z5558319xGluYJysl6bibdl0na3p///KLnnj7qZYQHGveIUjSSjBrmH/eDbtfvfC5rcdacmWZBY++PrqLR/xuxfu96uKn2P/2cFQ3Vd+6GKn6zsplugxW/b3j0n44+uuroox+qvykN3u0L973HSv3nI/s/p/s6zt3qXx71TgRUG/O5+SJLL9/+nn+HdTf0K7l3f13RoyqRkLqUTxO7qu3oo4e1HR3+hV0DX8vtnCh9rtN29NvPZT1P/Xzsisxpb2N3xvsoXmhMpVjiJKth/rNHZfGBAe6zUT+5oVF0vJmpRQzf+MMgucQymblXTvPtQjCVGrz6IRVZ94+1rH97P40SWbTuP9h5kdNTu2rjO3xzcRFdew+2nGSv3jlJQg9+Xi02BO/OQtanGNXnCcOyZfIvslM49JYvWrTIXM9/Ztoz81l63rPTn50n8uc9M3369GnTpk1XOfOeobTImfk3C0SpmXMWmjX4paazbbz++c/KnGl+vFw/svJ9uax6/5EfrHv4n1WaZZY//PfbHv7R+8znzoaHF697eMm6h3/wHzL+h3tZDi0Us2SvzHz1EIth+dsefvX9R5Zv8+MpnV8u08tEDA/7Ec8Ri9gvVUKbZD18+SHPp+ZRbXYM35FXViw8Lbub4x2vtqYe8/qT1qL/9fxnnn1W9iH1/LN0SuU9+cw8UQO9U7zs0zNnRvTquyZvb1z5Emfl62tXvrT2pyzvp2tfWrnhLb6ZpUXmuz99/aWVG98WybVU4HXKDo58960NslIvh6EFswC9YFAlJrKzFPA56iI7hUNveVZWFq0F9zf98GvHHll5jK/fj5Z+jXzu+jx2zCRMy+7meMcrSHR6e2oiO0sBn6MuslM49MYvXLhwkqwfWlH50GuVo6xfevvLef8+SszkW8vu5sTogUSst6UmsrMU8DnqIjuF88ILL9C7Pkn48ooKGvpf/hFfO5T+aqFx/5zkPn/nnXdIj9Ra79ixQ3aWAj5HXWSncOhGZf78+QsWLJgM6//x6tEv/+ioe+u8I+dkd3OS3OdvpyBVVVWysxTwOeoiO0VB9yp0FPTe33e+9Go5CfClAr52Iv2VVccsmQXJ7PO33nqLDEmVNZ3sImUmDJ8BACkNfAbAHeAzAO4AnwFwB/gMgDvAZwDcAT4D4A7wGQB3gM8AuAN8BsAd4DMA7gCfAXAH+AyAO8BnANwBPgPgDvAZAHeAzwC4A3wGwB3gMwDuAJ8BcAf4DIA7wGcA3AE+A+AO8BkAd4DPALgDfAbAHeAzAO4AnwFwB/gMgDvAZwDcAT4D4A7wGQB3gM8AuAN8BsAd4DMA7gCfAXAH+AyAOzzwPndV5k+fmjYla3P9sMwBIGV50H3uLlueNoV8nppW1CizAEhZMD9XFS7KTJueW5yI+XlkuON85cH1BbN34GQBkgHunxNJV1keJn+QROBzIoHPILnA50QCn0FysXzuObKMj78pWxrC4e6PSgpefDqdXk7Pyt9xtnuEh/Q3lRcVzGafCU/9xtyCzdWdPJfoPLhUlN0Usm9FWw9m802vVN6SOdEwGhDuOlv8ctY32MvMaYsKimt7RJCkfguPnJpX1hPuOVucz5qa/kplt9xMTW0NlW7KX8QPgTbNzMlfX1rXJTdK9EpMumtLCr4v9k5HmlewV/WAzkh/SzWF5UzLYGFpGU8veHlLiHbhmWwukXsBYAKJ6vORsuVCA29Jz6/svtO4ea6RSabl/VqO0Y7SXJG5rsYUurV0Ac/Pr+iXOVHxGxCq3zJb7sJbMhdsa/Sr9lTcX7pO6ETLsjLh8/D53dleprHMyP+1dw6K4vNI5/E1WVoRuaQv2t5wR4Yw7jRuXZRpxdCyuR4+g/tDNJ8z06fnbK5o7e7t76jfnSfFmDN7bmba3E3lrT23ejsbdinhZ+2+KEr3VuaLnPWG0Bd3zWGZGZvqRv8I2WvAnKdmZWZvq2np6r/V29NSvV3JmVXcJEM9FdMzMtPzSy/2ymxGZ5lsc0ZOYWljR6+oZHcuv6wIrEQzbbhhm5A5q7Cs6RbNySPDHdWbxMnlqSJ1QhlpVdcjU2e/XBJifdJ/q6u1rnTtHrq4HhlmL5tKc3lA2oYa9pKW0XsAgPiJ5rMxk9yqKBCZaVOWH/Hntv7yV1SmvIgdrtvA5ytD3abiWSzsqR2eQzHwG5B9qFXmcYY/2vIUz0/37kWVirS7kD5tes2I/JZIa2m2KLKiSl75R/rcJmOsBlzcwc9K6m7C65PZnuGR4P4ZJJdoPq8+rl8ad5bJecbTgNNyKIcH5/mSn9/NrctcV6sGeZPImVN8Xmb4HvqLd0bwGlBQrs+3DHle8K6o/XrePCsyFI1bxeQccLvunYO21Imb4Qifu38tvmGiHZTgIxGZuZW52VOez+uJfdEBn0FyifV5mE+Ucel9uYrdMUrkR1/pG86KcS6ntaWlHfwlY0w+mw1gRGyKnFoFMS1qKBKVqD1GVKICoi78YBs3i5feySUQ+AySy4T7rD4VExPXiJxUbeWiMgafs0tbRAZ8BsBk4n1Wn4rxS255+R158RwNvwHyethjuGYd31esW1/ByFkpW9D19vEVfFPG9miTfMeRPJ7jXTIEov4CN2v3xcg/YnnAZ5BcEuCz+jgqfUNNqEgk5LX3GPAakGn90avjiNyXb280nz1pp2T5N+0C9XmY36TISuQ5yP48zEJ9PJaZV2bdZ2vAZ5BcEuGzUmJWbja72M60t8bCawBNoTmFZU3d7M88nQ2la+XfomdtafA0j+oz+xBOxmfkbi6L+HtVxvJyb+4NqMRrw4zcHewPZsM0Aw/332prKt+7el2FCuutKpB/QsvMfrOsoY3/OaqrNbR3Nft7laC/qoBXnjZr03EK6Gosr4loKgATR2J89j6LpiX2FamN34DivTnWF1rI8K36359i+Extq9myQPpmLhm5xedHq6SzqtD+2oxc9LBoX1nReoOuFIwvnAQ2FYCJIkE++98Vyy6NfjkagN6A4ZaKLflzZ7CX07NyV5WM/auakq7GI0UFC0QN7BujeQV7a1qsr6hFq2Skp077rig1YMH3V28ta7S/8tnPJuRcuQv+tdBtlS3Gd8haj6zPFd8GTZ+Zu7V21G/IARA/ls8ThvI59qdKkUQ5oSSOUU8KAKQOCfJZ/W/G6P+AYZFsn4drNgmfN38kcwBIXRLi83C9+G6m9i2xsZJkn71vho73OgKAyciE+sz/CaGjVv7vBPt/LLlh7CTH58byXY0dvT0Xy+TH5unm91gBSFEm0mfjm1Vztxj/WjhWkuSz/MKJWDL0fzIBIIWZUJ+38WvXjKfziiovxvk5bnJ87jzCH35ATc1eX9qAD8KAKyTo8zAAwH0APgPgDvAZAHeAzwC4A3wGwB3gMwDuYPjcfaMPCxYsqbtgfgbAHeAzAO4AnwFwB/gMgDvAZwDcAT4D4A7wGQB3gM8AuAN8BsAd4DMA7gCfAXAH+AyAO8BnANwBPgPgDvAZAHeAzwC4A3wGwB3gMwDuAJ8BcAf4DIA7wGcA3AE+A+AOCfC5fkuyfo39QaWrLG/K1M318hUAHprPQaOE/aTzsjLjZ9mZrsuPdMlXAcDnhMN+v/pefaa3yXpnQeqjz8/st5fzyvRfQxa/e27Y2122fJRxMLl8noih7wz6WwOfXcS43rZdZW//8jxD8kjnI4DPkxX2/hY1yhfw2UXM+2cusDcbi7efXXJ7g4Bdk/sBbBObwM053PKZvVRh/gBi5wUvX/NNnC8ava18k7hMsCIJPz94aOq71sqy4/LyvUOLQI5+fhvCIsUurJeiE4xK+KFFqZaC2dnQa5gfRsdCfSiOSHWmty8j0t6j9i7op1Gzc/Sqpqg2BHYaSGWsz8PYIFDjno1Lltb91NLGqGL5ahRqMdwcT/WeI0ViAPGh5pXlQ03N+cJzWUSJp7/0hqzeVN6Y4NFphBF89HuV8N1FGdYUmVe0JU9u5fUUeQ741bJW6TXo3WXDz1bL1CTJD1y2jaXpUkgryOrxWs52p3eRyjfa778jes0Uo3W7yuT1RzlwkLpYPltjQojkjwNzqz5q+UgVA84f0OYAUtgCGDlaPQx9HBN+hayId0Yg/NZamG2IDItZUGtnwEtZrdEV5u5seCV+s/2D5acqvRl2PX4XaQ3mpfx3QcVYfagw2gmf3cT22bPRH0BipmLjQxtkfPawFjmGPJ+tAaRQtWn4kQE+a8Paf8nOLHYDxuBzwCBme9TNkWjaMGK9pF1ogsn6WbVe22T9ViXawfonSoHXhwq/Zn+T0Vfcbb4jey8S/Q1lUJjdFSDlifBZCaBbJ4eCPlACxFAky2e7kmDi9dkyKtZLVUMUkXzsvXtts446wj1NeG0TK+6dMvz2WE1V2KcM4CKRPouxVebNOQw+UjcXaYMsxtj1x5NloyRysGo5Y/U5spIomDVENjvKgbD6tdEf8FLbuzi5jHqKsYzSKqFGGm2wj441Uh6Ftpfg7o3is33KAE4S6bMYTMvNqZWNBpoEtAHBc4wxHTA/sKr8kRrr8zA1LsfqsyhlRAZPPvY4ZlL5h8aPIqCgVSqgEv0lP0y92kDMSlgvqZ6JNNDoE727WCVeh7Bj8d4CKiJjWLzakdctVk+KNsduMEg9AnwWg8ka5VwDax7jMrBxzBZzpPoDRY11M0aMUbno1VrmWKPQfCnaGVCJCWsPizE0UAW1fenE3K/9Uu7CyAmAlfL2a3eRPhsLVLNp8RvJDtnursgK9Z6JOGoZBp+dJMhnME6YGwGTvAlz7J79iZzJAdCAz/eMPWcGEzwJjxM2x4564gAPMPD5HrFuEKIyASqyyXn0Ewd4kIHPcSPvXcci89i1D0Td+kJmMArwGQB3gM8AuAN8BsAd4DMA7gCfAXAH+AyAO8BnANwBPgPgDvAZAHeAzwC4A3wGwB3gMwDuAJ8BcAf4DIA7wGcA3AE+A+AO8BkAd4DPALgDfAbAHeAzAO4AnwFwB/gMgDvAZwDcAT4D4A6J93mks3x97rSMqWkZ22P+8JJ4PH3QjzPxX2aTD6Mfbtw6d2r698o6+JYYiN/BG+034gBwCtNn3RyPwMyxMtxQNCdtSmb2tspQaVWLzAxkrD4XL8r8xiuVo/4QFHwGDyCJ9rnzyPempmWXxjRZMDafxwx8Bg8gifaZ/+jxmH5XET4DcK+M2+fuj0oKXnw6nSzNeDr7rbO3RO5I/8WyTdkzMynyG3MLij/iwbygvxQ1yt8Z939mUXd4jD7rJwhZpK7nbHE+a1L6zOV7zg/zMNPnO42b505Nm7v2eCffFHgIAKQ+4/S5affsKVNnv1xSXnu2rqIkf43wim6Ss9IycgpLa+pqaw6uyUqbkrW1cTjc21pXW5JP2mRvYfGX+xPjc9bspXnFFWfL9xZQ29IyNtVxo32fRzqP5GemZSw/wmWOcggAuMD4fO7+NZOk8GS/2BIe4eu20uwpU/MrVOZwzTryan0N18q83k6Iz7kHW/kW9ruqdIEwp7iJpZXP/FwzJYsSPCTKIQDgBKbPTbufmjI1V05kCl2n3pp1dOE6JXPai6v3VLfe4jIIQ+xFKpcEn/0i+jW2SOflL0+fkplXph1R0CEA4Aamz8I3ObVKOo7keZIwRvpbqksKls6gzPT8so4Rac666v5bvdrSL+q4zz4XFm1hV9dFdPWvEXEIALiB6fNI42b2xQ91q0mMtO5ZSs4UlPeKl3zNadg2R17c8ln9qTfPGs5ITJ9HzrKX3p+vhhs3z0qsz5TuKKMpWlM68BAAcALTZ5qN+ehPy3g6b/32rW+uzp5OwkydvU3K0F1WkFtUFqo9W1ddWkhXrRlrj7P70J7yfLpxzVywgn/IVF22ddWm8i5ewPI53F/+ClWYmf1mWai6bPOLM9Lp9JFgn+XHdeqqO8ohAOACts9Ed+3u/EX8zzl0k7moYHNFqzfx3qrfnT+XXaamTZkx++Ut5ZfVlpHOUFHBbC5/2vSs3FWlF+UWy2dy0P/bUvFHjZqQifNZ/b2KfyoW9RAASH0CfAYApCjwGQB3gM8AuAN8BsAd4DMA7gCfAXAH+AyAO8BnANwBPgPgDvAZAHeAzwC4A3wGwB3gMwDuAJ8BcAf4DIA7wGcA3AE+A+AO8BkAd4DPALgDfAbAHeAzAO4AnwFwB/gMgDvAZwDcAT4D4A7wGQB3gM8AuAN8BsAd4HPyuXX49U8f2nVdvgJg4kiyz9c3Lvv0IWNpPix/WfbBAT6DRHEffN6o/yRsw+fM6tQc3F0VzQ+93j6G01HEUQOQGO63z0RX+5LUHO7wGUw24vd57U82/q///de0UEJmjU7wyD6zy5iimSfeBbk1dYv5XCzCJcoxpNJ2wc4UzYcb2PmCF/n8DGX6NfCXHvy0Ijf5O2XXxksqbrEWik1yX/ya2YtXDfDDvDboDZaZsk6+mTCq0jtHdIvWG2aDAYggTp/J4bQpU71lzEoH+6xPdFwJb+Dysa428ZHt3W/fOryL54/ic4SB+kvPW2G+V7O/SZZSbWaVeyra83NX+0bPUqaxV6F11KxOVQnbZDbDr1+cHdRLs8EABBGnzzQt6z7TS7lhFIJ99p00vOL4OaOVlWhhVm2GY+KlPHGQOdqEqW+yLdIdtn020Ftrtdz3ObIGPYf5rG/VGgxAIJPCZ38Q23ISbPSzIkzOoNFsF4nts1aDJa28pvUWf5Ou+ig+sz36lYzqs30eIbTDZD7rEzJ8BqMxKa63/WF9/3yObBVnHD4z/fzd6UcKn0GSmASfh+nD1DKQ8HOCzwX2KGfxKmysPkeY4zN2n63mjcnnyBlez4HPYLzE73Nc2E6acxqD53ijlg19b0yzse4Hq8/DeJ1KOR4/fp95WmuY/8lWLJ/NCo1IfhRehVYl+kvWeF9a/WQEn8H4uQ8+i3tLuQTNikIGseguEVzpiE3cRr6QvdopY+w+E34ltARbSpgzKtvK4kUOt1HUsLHBPHOpynmOVafeJxGnNvgMxkOSfQYAJBD4DIA7wGcA3AE+A+AO8BkAd4DPALgDfAbAHeAzAO4AnwFwB/gMgDvAZwDcAT4D4A7wGQB3gM8AuAN8BsAd4DMA7pBcn83nbyQG+wkEADw4wGcA3MG96234DB5c4DMA7hC/z/E8r9d8QF/Aw/2sJ/gR2kPw9OcEGhft2oP4llRct3zW92I/flB/BqD53FwAUpE4fSaH43mevqHr9Y0Bz6m1ZlftZbRfh/LLMoTzXg38pfGwTs9b7rnXGO/pvwCkMHH6TNOy7jO9lBtiEzn9SnxvjQfiRo33n4ZrP9TWPAXYxf0c83m6ADjB/fVZf/S0N6lSpoxhbuuusuJ+vDefm1pqPtM0bl9Fq3hWFZ5lDVzjvl1vi9tapaImIZ9yedpwlV85e+cCb3aFzwD43K/PwwyB7ZfCQ0M56/LY8Nm83mabZFXa6UPi51gVAuAC8fscD5pg+n2vmKtNvZs37mqOJjyfq5WN/DNqz0yxyYw0Pw8zdurZjs/DgAvcN5/FDEnucf0C/8gUObXK+Gi/DsU3mVO9Mlwsej4hziOBmwBIRZLvM+5aAUgUyfWZTaTwGYBEkUyf7SthAMDEkhyf1a2y8UE0AGCCSe71NgAgkcBnANwBPgPgDvAZAHeAzwC4A3wGwB3gMwDuAJ8BcAf4DIA7wGcA3AE+A+AO8BkAd5gUPrNHDtgP+po41IMQxvp0If2hC/f+D57GIxwASCxJ9jn4qV2J9Hn8zwmDzyBlmRQ+jwp7MFB8wsehE3wGKQt8jgA+g5Qlfp/jeV5vjOtt71EHTAD5jD7uMH8op5ETiRHj1a8/7i9QS/1RgX6rxuKziGkQTZUB+u6CayP0o9Of7mAftYI1ICBea3mUyuM7/YEUJ06fyeF4nqc/us96gP8M3ZjzMytinQ78pxpZOunE+kGssfhsOGO0kG+VR6HXZjTGeHjwmV3eXrR8I97/uS/j9Oe3PLjrwANFnD7TtKz7TC/lhlEYzWdjBPvE8DlyU4RaARVGoDVMLxLTZ+1AqLixl8Ajokzj8WlRKvfbHxjAKtQz1VPZxnqkwGUmmc8irc+3nBg+25IQ+oiPPcrZVnWBOm6ftWrNeuRi+2zeOMjFr1weuFjkwcoiEWcBLZIvIiCw68ADxWS73haooa8yE+EzH/3epjjmZ8vnoDDCj2QHFXnsDBYT42BZ2zxpWZOidAXH7jrwQDH5Pg/z0FyK4XPkJiPHEs/Hasm9+RzluBhaZPBhWg2OeCnwM6MekUa0ZgPXid/nuBjNZ/szKjUoYw1QVqfvCRvu2i6ijn42j3kTO5+r78VnUYMf2VXxudxq12a0TR6svhfefqluw+desCY5n4E14eVnadG6DjxI3Aef2dWgt/Bxqfus3YjqI1JdRmrjWEOv1rQ3QjwfbV/GD2LZBgaJEVStOCnIxTi/aJFcabX4NftlX28/46mrBxsHrnqDL/KspB0OZH5gSbLPAIAEAp8BcAf4DIA7wGcA3AE+A+AO8BkAd4DPALgDfAbAHeAzAO4AnwFwB/gMgCuEw/8feItDOIaN1VYAAAAASUVORK5CYII=" alt="readme">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The links in the <code>README.md</code> file shown above become valid only after Travis has completed its first build.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_custom_domain_name">Custom domain name</h4>
+<div class="paragraph">
+<p>If you have specified a custom domain name for the GitHub Pages site during the project generation, BootHub has created a <code>CNAME</code> file in the <code>ghpages</code> directory.
+This <code>CNAME</code> file, which contains the custom domain name, will be pushed to the <code>gh-pages</code> branch of your GitHub project when Travis builds your project for the first time.
+(If you have not specified a custom domain name during the project generation, you can also <a href="https://help.github.com/articles/adding-or-removing-a-custom-domain-for-your-github-pages-site/">add a custom domain</a> later.)</p>
+</div>
+<div class="paragraph">
+<p>To access your GitHub Pages site using a custom domain you need to set up the custom domain with your DNS provider,
+as described in the last of the step of <a href="https://help.github.com/articles/quick-start-setting-up-a-custom-domain/">this document</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="asciidoc">AsciiDoc</h4>
+<div class="paragraph">
+<p>The template generates in the <code>doc</code> directory a documentation skeleton tailored to your project.
+The information already available in this generated documentation include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the author of the documentation (by default, the first person in the developer list)</p>
+</li>
+<li>
+<p>the location of the source code on GitHub</p>
+</li>
+<li>
+<p>the location of the javadoc/groovydoc</p>
+</li>
+<li>
+<p>project licensing information (including a link to the license file)</p>
+</li>
+<li>
+<p>java version requirements</p>
+</li>
+<li>
+<p>info about the artifacts of this project and how other projects can use them via Maven or Gradle</p>
+</li>
+<li>
+<p>info for developers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>how to build the project</p>
+</li>
+<li>
+<p>how to configure the project in Eclipse or IntelliJ Idea</p>
+</li>
+<li>
+<p>how to configure the credentials needed to publish artifacts to Bintray</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_license_header_check">License header check</h3>
+<div class="paragraph">
+<p>If you enabled the license header check, your source files must include the header provided in the <code>license-header.txt</code> file.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/hierynomus/license-gradle-plugin">license-gradle-plugin</a> for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_findbugs">Findbugs</h3>
+<div class="paragraph">
+<p>If you enabled FindBugs, the gradle script will use the <a href="https://docs.gradle.org/current/userguide/findbugs_plugin.html">FindBugs plugin</a>
+to perform quality checks during the build.</p>
+</div>
+<div class="paragraph">
+<p>In the file <code>findbugsExclude.xml</code> you can configure which issues to exclude from being reported.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing">Testing</h3>
+<div class="paragraph">
+<p>During the build, the gradle script executes your JUnit and Spock tests.</p>
+</div>
+<div class="paragraph">
+<p>You can find the test reports in the <code>build/reports/test</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>Spock test reports are also available in the <code>build/spock-reports</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_code_coverage">Code coverage</h3>
+<div class="paragraph">
+<p>The gradle script uses the <a href="https://github.com/bmuschko/gradle-clover-plugin">Clover plugin</a> to generate a code coverage report.</p>
+</div>
+<div class="paragraph">
+<p>After executing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gradlew cloverGenerateReport</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you will find the code coverage reports in the <code>build/reports/clover</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_publishing_to_jcenter_and_maven_central">Publishing to JCenter and Maven Central</h3>
+<div class="paragraph">
+<p>The Gradle task <code>bintrayUpload</code> lets you publish your artifacts to <a href="https://bintray.com/">Bintray</a>.
+You can then <a href="https://bintray.com/docs/usermanual/uploads/uploads_centralrepositories.html#_including_your_package_in_jcenter">include your packages in JCenter</a>
+and <a href="https://bintray.com/docs/usermanual/uploads/uploads_syncingwiththirdpartyplatforms.html#_syncing_artifacts_with_maven_central">synchronize them with Maven Central</a>.</p>
+</div>
+<div class="paragraph">
+<p>Before being able to execute the <code>bintrayUpload</code> task, you need to configure your credentials.</p>
+</div>
+<div class="sect3">
+<h4 id="_credentials">Credentials</h4>
+<div class="paragraph">
+<p>Your Gradle build script uses the <a href="https://github.com/stevesaliman/gradle-properties-plugin">gradle-properties-plugin</a>,
+which allows you to configure additional project properties in the <code>gradle-local.properties</code> file.</p>
+</div>
+<div class="paragraph">
+<p>This is the file in which you should configure your credentials.
+Since <code>gradle-local.properties</code> is already listed in your project&#8217;s <code>.gitignore</code> file, your credentials will not be committed to git.</p>
+</div>
+<div class="paragraph">
+<p>To create this file you can simply copy the provided template file <code>gradle-local-template.properties</code> to <code>gradle-local.properties</code>.
+The content of this file is shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>signingKeyId = A0B1C2D3
+signingSecretKeyRingFile = C:/dev/gpg/jsmith.gpg
+
+bintrayUser = jsmith
+bintrayKey = a0b1c2d3e4f5a0b1c2d3e4f5a0b1c2d3e4f5a0b1</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You need to configure the appropriate values for the above properties, which are used for signing your artifacts and for granting you access to Bintray.</p>
+</div>
+<div class="paragraph">
+<p>The signatory credentials consist of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the public key ID (an 8 character hexadecimal string)</p>
+</li>
+<li>
+<p>the absolute path to the secret key ring file containing your private key</p>
+</li>
+<li>
+<p>the passphrase used to protect your private key</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The passphrase of your private key is a very sesnsitive information, therefore it is not stored in the <code>gradle-local.properties</code>.
+Instead, Gradle will ask you to enter it each time you execute the <code>bintrayUpload</code> task.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://www.gnupg.org/documentation/howtos.html">GnuPG documentation</a> and the
+<a href="https://docs.gradle.org/current/userguide/signing_plugin.html">Gradle signing plugin</a> for details on how to create and configure your signatures.</p>
+</div>
+<div class="paragraph">
+<p>The Bintray credentials consist of your Bintray user name and your
+<a href="https://bintray.com/docs/usermanual/interacting/interacting_interacting.html#anchorAPIKEY">Bintray API Key</a>.
+See the documentation of the <a href="https://github.com/bintray/gradle-bintray-plugin">gradle-bintray-plugin</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dev_guide">Developer Guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section is for developers who want to fix bugs or change the functionality of the Java/Groovy template.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read about <a href="http://doc.boothub.org/releases/latest/#Templates">writing BootHub templates</a> before starting to change the Java/Groovy template.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Java/Groovy template comes with a suite of tests that generate skeletons with various flag combinations and check their validity.
+You should update these tests and add new ones according to the changes you make.</p>
+</div>
+<div class="paragraph">
+<p><strong>Command Line Build</strong></p>
+</div>
+<div class="paragraph">
+<p>The Java/Groovy template is built with <a href="http://www.gradle.org">Gradle</a> and requires JDK 8 or higher.
+Clone the GitHub repository, <code>cd</code> into the top directory and start the build:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>git clone https://github.com/boothub-org/boothub-template-java-groovy.git
+cd boothub-template-java-groovy
+./gradlew clean build            (On Windows: gradlew clean build)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>IntelliJ Idea</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start the IntelliJ Idea IDE</p>
+</li>
+<li>
+<p>make sure that the Groovy plugin is enabled</p>
+</li>
+<li>
+<p>open <em>build.gradle</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Eclipse</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>start the Eclipse IDE</p>
+</li>
+<li>
+<p>install the <a href="https://github.com/groovy/groovy-eclipse/wiki#releases">Groovy plugin</a></p>
+</li>
+<li>
+<p>install a recent version of <a href="https://projects.eclipse.org/projects/tools.buildship">Buildship</a></p>
+</li>
+<li>
+<p>import the project using the Gradle Project wizard</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 0.4.0<br>
+</div>
+</div>
+</body>
+</html>
