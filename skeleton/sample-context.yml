@@ -9,7 +9,7 @@ versionPatch: 4
 # versionLabel: rc-1
 releaseBuild: false
 
-ghProjectOwner: &maintainerId ob1
+ghProjectOwner: &maintainerId jsmith
 ghProjectId: weirdo
 projectName: The Weirdo Project
 # ghPagesCname: weirdo.bizarre_soft.org
@@ -35,11 +35,10 @@ appMainClass: WeirdAppMain
 
 developers:
   - id: *maintainerId
-    name: Lux Kye Walker
-    # email: force@war.mil
-  - id: jefrigerator
-    name: Jeffrey J. Rater
-    email: jr@frozen.gov
+    name: John Smith
+  - id: ejohnson
+    name: Emma Johnson
+    email: emma@johnson.gov
 
 
 language: JAVA_GROOVY
