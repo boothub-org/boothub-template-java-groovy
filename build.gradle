@@ -124,7 +124,6 @@ dependencies {
 
   testCompile('ch.qos.logback:logback-classic:1.1.7')
     testCompile ("org.boothub:boothub-core:$boothubVersion") {
-
       exclude module: 'groovy-all'
   }
   testCompile ("org.boothub:boothub-gradle-test:$boothubVersion") {
@@ -278,7 +277,9 @@ artifacts {
     (System.getenv("TRAVIS") == "true") ? archives(sourcesJar) : archives(sourcesJar, groovydocJar)
 }
 
-
+test {
+    systemProperty "test.verbose", System.getProperty("test.verbose")
+}
 
 configureGroovydoc(groovydoc)
 
