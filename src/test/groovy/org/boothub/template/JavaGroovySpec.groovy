@@ -92,7 +92,7 @@ class JavaGroovySpec extends Specification {
         def builder = new ProjectContextStreamBuilder({new Initializr(TEMPLATE_DIR).createContext(getPath("/$contextFile"))})
                 .withFlagNames('language', 'testFramework')
         if(Boolean.getBoolean('test.verbose')) {
-            builder.withFlagNames('checkLicenseHeader', 'useFindbugs', 'useClover', 'useAsciiDoc', 'publishDoc')
+            builder.withFlagNames('checkLicenseHeader', 'useFindbugs', /*'useClover', */'useAsciiDoc', 'publishDoc')
         }
         builder.stream().collect(Collectors.toList())
     }
