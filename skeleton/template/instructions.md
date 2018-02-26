@@ -51,4 +51,4 @@ gradlew build
 ```
 {{/if}}
 
-See the [skeleton documentation](http://java-groovy.boothub.org) for more info.
+See the [template documentation](http://java-groovy.boothub.org) for more info.

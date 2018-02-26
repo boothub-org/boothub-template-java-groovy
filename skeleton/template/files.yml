@@ -8,7 +8,7 @@ targetPath: .gitattributes
 
 --- !!org.boothub.context.FileContext
 filePath: settings.gradle
-enabled: {{asBoolean multiModule}}
+enabled: {{multiModule}}
 
 --- !!org.boothub.context.FileContext
 filePath: ghpages/CNAME
