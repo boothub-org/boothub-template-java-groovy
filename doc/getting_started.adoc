@@ -132,9 +132,9 @@ The template lets you select the test framework to be used. You can choose betwe
 <pre class="lime" style="margin-left: 20px;">
 
 Test Framework:
-  1: only JUnit
-* 2: only Spock
-  3: JUnit and Spock
+  1: JUnit 4
+  2: JUnit 5
+* 3: Spock
 Enter your choice:
 
 </pre>
@@ -144,7 +144,20 @@ Enter your choice:
 </pre>
 ++++
 
-You can also specify if your project needs support for documentation:
+
+Then you choose whether the generated Gradle script should add support for uploading artifacts to Bintray:
+++++
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Add support for uploading to Bintray? (Y/N) [Y]:
+
+</pre>
+</div>
+++++
+
+
+You can also specify whether your project needs support for documentation:
 ++++
 <div class="black-background">
 <pre class="lime" style="margin-left: 20px;">

@@ -42,7 +42,7 @@ developers:
 
 
 language: JAVA_GROOVY
-testFramework: JUNIT_SPOCK
+testFramework: SPOCK
 
 checkLicenseHeader: true
 

@@ -16,7 +16,9 @@ Features:
  - versioning
  - license header check
  - support for Eclipse and IntelliJ Idea
- - testing with JUnit and/or Spock
+ - testing with https://junit.org/junit4[JUnit 4],
+                https://junit.org/junit5[JUnit 5],
+                or http://spockframework.org[Spock]
  - automatic build and test via https://travis-ci.com/[Travis CI]
  - support for http://asciidoc.org/[AsciiDoc] documentation
  - automatic publishing of versioned AsciiDoc and javadoc documentation to https://help.github.com/articles/user-organization-and-project-pages/#project-pages[GitHub Project Pages]

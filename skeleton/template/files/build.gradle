@@ -50,6 +50,12 @@ plugins {
     id 'com.github.jk1.dependency-license-report' version '0.3.8'
     {{#if useClover~}}id "com.bmuschko.clover" version "2.2.0"{{~/if}}
 }
+{{~#if useJUnit5}}
+
+test {
+    useJUnitPlatform()
+}
+{{~/if}}
 
 project.version.with {
     major = {{prjId}}VersionMajor as int
@@ -152,7 +158,7 @@ dependencies {
   compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
   {{#ifb (and (not multiModule) appMainClass)}}runtime ('ch.qos.logback:logback-classic:1.1.7'){{/ifb}}
   {{#if useFindbugs}}provided 'com.google.code.findbugs:findbugs-annotations:3.0.1'{{/if}}
-  {{#if useSpock}}
+  {{~#if useSpock}}
   {{#if (not useGroovy)}}testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"{{/if}}
   {{#ifb (and (not useGroovy) useSpock)}}testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"{{/ifb}}
   testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
@@ -161,10 +167,14 @@ dependencies {
   testCompile 'cglib:cglib-nodep:3.2.4'
   testCompile 'org.objenesis:objenesis:2.4'
   testCompile('com.athaydes:spock-reports:1.2.13') { transitive = false}
-  {{/if}}
-  {{#if useJUnit}}
+  {{~/if}}
+  {{~#if useJUnit4}}
   testCompile 'junit:junit:4.12'
-  {{/if}}
+  {{~/if}}
+  {{~#if useJUnit5}}
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+  {{~/if}}
   testCompile('ch.qos.logback:logback-classic:1.1.7')
   {{#if useClover~}}clover 'org.openclover:clover:4.2.1'{{/if}}
 }

@@ -5,7 +5,7 @@ Features:
  - versioning
  - license header check
  - support for Eclipse and IntelliJ Idea
- - testing with JUnit and/or Spock
+ - testing with [JUnit 4](https://junit.org/junit4), [JUnit 5](https://junit.org/junit5) or [Spock](http://spockframework.org)
  - code coverage with [Clover](https://www.atlassian.com/software/clover)
  - automatic build and test via [Travis CI](https://travis-ci.com/)
  - support for [AsciiDoc](http://asciidoc.org/) documentation

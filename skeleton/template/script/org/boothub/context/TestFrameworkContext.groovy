@@ -1,16 +1,13 @@
 package org.boothub.context
 
 import groovy.transform.SelfType
-import org.boothub.context.ConfiguredBy
-import org.boothub.context.ProjectContext
-import org.boothub.context.TextIOConfigurator
 import org.beryx.textio.TextIO
 
 @SelfType(ProjectContext)
 @ConfiguredBy(TestFrameworkContext.Configurator)
 trait TestFrameworkContext {
     static enum TestFramework {
-        JUNIT('only JUnit'), SPOCK('only Spock'), JUNIT_SPOCK('JUnit and Spock')
+        JUNIT4('JUnit 4'), JUNIT5('JUnit 5'), SPOCK('Spock')
 
         String name
 
@@ -22,9 +19,10 @@ trait TestFrameworkContext {
 
     TestFramework testFramework = TestFramework.SPOCK
 
-    boolean isUseJUnit() { testFramework == TestFramework.JUNIT || testFramework == TestFramework.JUNIT_SPOCK }
-
-    boolean isUseSpock() { testFramework == TestFramework.SPOCK || testFramework == TestFramework.JUNIT_SPOCK }
+    boolean isUseJUnit() { testFramework == TestFramework.JUNIT4 || testFramework == TestFramework.JUNIT5 }
+    boolean isUseJUnit4() { testFramework == TestFramework.JUNIT4 }
+    boolean isUseJUnit5() { testFramework == TestFramework.JUNIT5 }
+    boolean isUseSpock() { testFramework == TestFramework.SPOCK }
 
 
     static class Configurator extends TextIOConfigurator  {

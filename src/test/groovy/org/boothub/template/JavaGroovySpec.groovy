@@ -72,10 +72,10 @@ class JavaGroovySpec extends Specification {
         checkBuildArtifacts(builder, module, fileNames, forbiddenFileNames, testFileNames, forbiddenTestFileNames)
 
         where:
-        module             | fileNames                                      | forbiddenFileNames                             | testFileNames                        | forbiddenTestFileNames
-        MODULE_SPOOKY_UI   | ["SpookyUiGroovyUtil", "SpookyUiJavaUtil"]     | ["SpookyUiGroovyMain", "SpookyUiJavaMain"]     | ["SpookyUiTest", "SpookyUiSpec"]     | []
-        MODULE_STRANGE_LIB | ["StrangeLibGroovyUtil", "StrangeLibJavaUtil"] | ["StrangeLibGroovyMain", "StrangeLibJavaMain"] | ["StrangeLibTest", "StrangeLibSpec"] | []
-        MODULE_WEIRD_APP   | ["WeirdAppMain", "WeirdAppJavaUtil"]           | ["WeirdAppGroovyUtil"]                         | ["WeirdAppTest", "WeirdAppSpec"]     | []
+        module             | fileNames                                      | forbiddenFileNames                             | testFileNames      | forbiddenTestFileNames
+        MODULE_SPOOKY_UI   | ["SpookyUiGroovyUtil", "SpookyUiJavaUtil"]     | ["SpookyUiGroovyMain", "SpookyUiJavaMain"]     | ["SpookyUiSpec"]   | ["SpookyUiTest"]
+        MODULE_STRANGE_LIB | ["StrangeLibGroovyUtil", "StrangeLibJavaUtil"] | ["StrangeLibGroovyMain", "StrangeLibJavaMain"] | ["StrangeLibSpec"] | ["StrangeLibTest"]
+        MODULE_WEIRD_APP   | ["WeirdAppMain", "WeirdAppJavaUtil"]           | ["WeirdAppGroovyUtil"]                         | ["WeirdAppSpec"]   | ["WeirdAppTest"]
     }
 
     def "should create a valid application using sample-context.yml"() {

@@ -199,7 +199,7 @@ bintrayKey = a0b1c2d3e4f5a0b1c2d3e4f5a0b1c2d3e4f5a0b1
 
 You need to configure the appropriate values for the above properties, which are used for signing your artifacts and for granting you access to Bintray.
 
-The signatory credentials consist of:
+The signing credentials consist of:
 
 * the public key ID (an 8 character hexadecimal string)
 * the absolute path to the secret key ring file containing your private key
