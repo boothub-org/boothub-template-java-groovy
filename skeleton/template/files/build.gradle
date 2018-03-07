@@ -132,8 +132,8 @@ sourceSets.main.java.srcDirs = []
 sourceSets.main.groovy.srcDirs = ["src/main/java", "src/main/groovy"]
 {{/if}}
 configurations {
-  provided
-  compile {transitive = true}
+    provided
+    compile {transitive = true}
 }
 {{#if checkLicenseHeader}}
 license {
@@ -149,34 +149,34 @@ signing {
 }
 
 signArchives {
-  onlyIf { gradle.taskGraph.allTasks.findAll {task -> isPublishTask(task)} }
+    onlyIf { gradle.taskGraph.allTasks.findAll {task -> isPublishTask(task)} }
 }
 {{~/if}}
 
 dependencies {
-  {{#if useGroovy}}compile "org.codehaus.groovy:groovy-all:$groovyVersion"{{/if}}
-  compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
-  {{#ifb (and (not multiModule) appMainClass)}}runtime ('ch.qos.logback:logback-classic:1.1.7'){{/ifb}}
-  {{#if useFindbugs}}provided 'com.google.code.findbugs:findbugs-annotations:3.0.1'{{/if}}
-  {{~#if useSpock}}
-  {{#if (not useGroovy)}}testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"{{/if}}
-  {{#ifb (and (not useGroovy) useSpock)}}testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"{{/ifb}}
-  testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
-      exclude module: 'groovy-all'
-  }
-  testCompile 'cglib:cglib-nodep:3.2.4'
-  testCompile 'org.objenesis:objenesis:2.4'
-  testCompile('com.athaydes:spock-reports:1.2.13') { transitive = false}
-  {{~/if}}
-  {{~#if useJUnit4}}
-  testCompile 'junit:junit:4.12'
-  {{~/if}}
-  {{~#if useJUnit5}}
-  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
-  {{~/if}}
-  testCompile('ch.qos.logback:logback-classic:1.1.7')
-  {{#if useClover~}}clover 'org.openclover:clover:4.2.1'{{/if}}
+    {{#if useGroovy}}compile "org.codehaus.groovy:groovy-all:$groovyVersion"{{/if}}
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+    {{#ifb (and (not multiModule) appMainClass)}}runtime ('ch.qos.logback:logback-classic:1.1.7'){{/ifb}}
+    {{#if useFindbugs}}provided 'com.google.code.findbugs:findbugs-annotations:3.0.1'{{/if}}
+    {{~#if useSpock}}
+    {{#if (not useGroovy)}}testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"{{/if}}
+    {{#ifb (and (not useGroovy) useSpock)}}testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"{{/ifb}}
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
+        exclude module: 'groovy-all'
+    }
+    testCompile 'cglib:cglib-nodep:3.2.4'
+    testCompile 'org.objenesis:objenesis:2.4'
+    testCompile('com.athaydes:spock-reports:1.2.13') { transitive = false}
+    {{~/if}}
+    {{~#if useJUnit4}}
+    testCompile 'junit:junit:4.12'
+    {{~/if}}
+    {{~#if useJUnit5}}
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    {{~/if}}
+    testCompile('ch.qos.logback:logback-classic:1.1.7')
+    {{#if useClover~}}clover 'org.openclover:clover:4.2.1'{{/if}}
 }
 
 sourceSets.main.compileClasspath += configurations.provided
@@ -322,19 +322,19 @@ clover {
 
 {{~#if useAsciiDoc}}
 asciidoctor {
-  sourceDir = file("doc")
-  sources {include 'index.adoc'}
-  logDocuments = true
-  attributes 'source-highlighter': 'coderay',
-             'coderay-linenums-mode': 'table',
-             icons: 'font',
-             imagesdir: 'img',
-             'data-uri': '',
-             linkattrs: true,
-             linkcss: true,
-             'git-tag': {{prjId}}Tag,
-             'blob-root-master': "https://github.com/{{ghProjectOwner}}/{{ghProjectId}}/blob/master",
-             'blob-root': "https://github.com/{{ghProjectOwner}}/{{ghProjectId}}/blob/${{prjId}}Tag"
+    sourceDir = file("doc")
+    sources {include 'index.adoc'}
+    logDocuments = true
+    attributes 'source-highlighter': 'coderay',
+               'coderay-linenums-mode': 'table',
+               icons: 'font',
+               imagesdir: 'img',
+               'data-uri': '',
+               linkattrs: true,
+               linkcss: true,
+               'git-tag': {{prjId}}Tag,
+               'blob-root-master': "https://github.com/{{ghProjectOwner}}/{{ghProjectId}}/blob/master",
+               'blob-root': "https://github.com/{{ghProjectOwner}}/{{ghProjectId}}/blob/${{prjId}}Tag"
 }
 {{#if publishDoc}}
 gitPublish {
@@ -430,40 +430,40 @@ applicationDistribution.from("${rootProject.projectDir}/..") {
 configureGroovydoc(groovydoc)
 
 def configureGroovydoc(task) {
-  configure(task) {
-    docTitle "{{projectName}} Documentation (${{prjId}}Version)"
-    windowTitle "{{projectName}} Documentation (${{prjId}}Version)"
-    destinationDir file("build/docs/groovydoc")
-    {{~#if multiModule}}
-    source subprojects.groovydoc.source{{#if useJava}} + subprojects.javadoc.source{{/if}}
-    classpath = files(subprojects.groovydoc.classpath)
-    groovyClasspath = files(subprojects.groovydoc.groovyClasspath)
-    {{~/if}}
-    if(project.configurations.hasProperty('provided')) {
-        classpath += project.configurations.provided
+    configure(task) {
+        docTitle "{{projectName}} Documentation (${{prjId}}Version)"
+        windowTitle "{{projectName}} Documentation (${{prjId}}Version)"
+        destinationDir file("build/docs/groovydoc")
+        {{~#if multiModule}}
+        source subprojects.groovydoc.source{{#if useJava}} + subprojects.javadoc.source{{/if}}
+        classpath = files(subprojects.groovydoc.classpath)
+        groovyClasspath = files(subprojects.groovydoc.groovyClasspath)
+        {{~/if}}
+        if(project.configurations.hasProperty('provided')) {
+            classpath += project.configurations.provided
+        }
+        link "http://docs.oracle.com/javase/8/docs/api/", 'java'
+        link "http://docs.groovy-lang.org/docs/groovy-$groovyVersion/html/gapi/", "groovy"
     }
-    link "http://docs.oracle.com/javase/8/docs/api/", 'java'
-    link "http://docs.groovy-lang.org/docs/groovy-$groovyVersion/html/gapi/", "groovy"
-  }
 }
 {{else}}
 configureJavadoc(javadoc)
 
 def configureJavadoc(task) {
-  configure(task) {
-      title "{{projectName}} Documentation (${{prjId}}Version)"
-      destinationDir file("build/docs/javadoc")
-      {{~#if multiModule}}
-      source subprojects.javadoc.source
-      classpath = files(subprojects.javadoc.classpath)
-      {{~/if}}
-      if(project.configurations.hasProperty('provided')) {
-          classpath += project.configurations.provided
-      }
-      configure(options) {
-          links "http://docs.oracle.com/javase/8/docs/api/"
-      }
-  }
+    configure(task) {
+        title "{{projectName}} Documentation (${{prjId}}Version)"
+        destinationDir file("build/docs/javadoc")
+        {{~#if multiModule}}
+        source subprojects.javadoc.source
+        classpath = files(subprojects.javadoc.classpath)
+        {{~/if}}
+        if(project.configurations.hasProperty('provided')) {
+            classpath += project.configurations.provided
+        }
+        configure(options) {
+            links "http://docs.oracle.com/javase/8/docs/api/"
+        }
+    }
 }
 {{/if}}
 {{~#if publishDoc}}
@@ -530,7 +530,7 @@ def readPasswordFromConsole(title, prompt) {
 }
 
 def isPublishTask(task) {
-  task.name.startsWith('publish')
+    task.name.startsWith('publish')
 }
 
 gradle.taskGraph.whenReady { taskGraph ->

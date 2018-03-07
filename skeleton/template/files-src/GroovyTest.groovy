@@ -9,7 +9,7 @@ public class {{targetFileClass}} {
     @Test
     public void onePlusOneShouldEqualTwo() {
         assertEquals(2, 1 + 1)
-  }
+    }
 }
 \{{~/if}}
 \{{~#if useJUnit5}}
