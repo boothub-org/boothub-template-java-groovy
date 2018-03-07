@@ -90,7 +90,7 @@ class JavaGroovySpec extends Specification {
 
     private static Collection<ProjectContext> getContexts(String contextFile) {
         def builder = new ProjectContextStreamBuilder({new Initializr(TEMPLATE_DIR).createContext(getPath("/$contextFile"))})
-                .withFlagNames('language', 'testFramework')
+                .withFlagNames('language', 'testFramework', 'supportBintray')
         if(Boolean.getBoolean('test.verbose')) {
             builder.withFlagNames('checkLicenseHeader', 'useFindbugs', /*'useClover', */'useAsciiDoc', 'publishDoc')
         }
@@ -185,7 +185,7 @@ class JavaGroovySpec extends Specification {
 
     private static Collection<ProjectContext> getAsciiDocContexts(String contextFile) {
         def builder = new ProjectContextStreamBuilder({new Initializr(TEMPLATE_DIR).createContext(getPath("/$contextFile"))})
-                .withFlagNames('language', 'testFramework', 'publishDoc')
+                .withFlagNames('language', 'testFramework', 'supportBintray', 'publishDoc')
         if(Boolean.getBoolean('test.verbose')) {
             builder.withFlagNames('checkLicenseHeader', 'useFindbugs', 'useClover')
         }

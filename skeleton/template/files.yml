@@ -13,3 +13,7 @@ enabled: {{multiModule}}
 --- !!org.boothub.context.FileContext
 filePath: ghpages/CNAME
 enabled: {{asBoolean ghPagesCname}}
+
+--- !!org.boothub.context.FileContext
+filePath: gradle-local.template.properties
+enabled: {{supportBintray}}
