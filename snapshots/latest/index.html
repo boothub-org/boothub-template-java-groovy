@@ -17,7 +17,7 @@
 <h1>The Java/Groovy BootHub Template</h1>
 <div class="details">
 <span id="author" class="author">Serban Iordache</span><br>
-<span id="revnumber">version 0.3.7-SNAPSHOT</span>
+<span id="revnumber">version 0.5.0-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -98,7 +98,9 @@ Click on the icon below to read the license file:</p>
 <p>support for Eclipse and IntelliJ Idea</p>
 </li>
 <li>
-<p>testing with JUnit and/or Spock</p>
+<p>testing with <a href="https://junit.org/junit4">JUnit 4</a>,
+<a href="https://junit.org/junit5">JUnit 5</a>,
+or <a href="http://spockframework.org">Spock</a></p>
 </li>
 <li>
 <p>automatic build and test via <a href="https://travis-ci.com/">Travis CI</a></p>
@@ -130,7 +132,7 @@ Click on the icon below to read the license file:</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can generate a project skeleton based on the Java/Groovy template by using the
-<a href="https://boothub.org/app#/home/true/https%3A%2F%2Fgithub.com%2Fboothub-org%2Fboothub-template-java-groovy%2Freleases%2Fdownload%2Fv0.3.7-SNAPSHOT%2Fjava-groovy-0.3.7-SNAPSHOT.zip" class="external" target="_blank">BootHub GUI</a>
+<a href="https://boothub.org/app#/home/true/https%3A%2F%2Fgithub.com%2Fboothub-org%2Fboothub-template-java-groovy%2Freleases%2Fdownload%2Fv0.5.0-SNAPSHOT%2Fjava-groovy-0.5.0-SNAPSHOT.zip" class="external" target="_blank">BootHub GUI</a>
 or the
 <a href="https://boothub.org/app#/cli" class="external" target="_blank">BootHub CLI</a>.</p>
 </div>
@@ -251,9 +253,9 @@ Enter your choice:
 <pre class="lime" style="margin-left: 20px;">
 
 Test Framework:
-  1: only JUnit
-* 2: only Spock
-  3: JUnit and Spock
+  1: JUnit 4
+  2: JUnit 5
+* 3: Spock
 Enter your choice:
 
 </pre>
@@ -262,7 +264,17 @@ Enter your choice:
 
 </pre>
 <div class="paragraph">
-<p>You can also specify if your project needs support for documentation:</p>
+<p>Then you choose whether the generated Gradle script should add support for uploading artifacts to Bintray:</p>
+</div>
+<div class="black-background">
+<pre class="lime" style="margin-left: 20px;">
+
+Add support for uploading to Bintray? (Y/N) [Y]:
+
+</pre>
+</div>
+<div class="paragraph">
+<p>You can also specify whether your project needs support for documentation:</p>
 </div>
 <div class="black-background">
 <pre class="lime" style="margin-left: 20px;">
@@ -680,7 +692,7 @@ bintrayKey = a0b1c2d3e4f5a0b1c2d3e4f5a0b1c2d3e4f5a0b1</pre>
 <p>You need to configure the appropriate values for the above properties, which are used for signing your artifacts and for granting you access to Bintray.</p>
 </div>
 <div class="paragraph">
-<p>The signatory credentials consist of:</p>
+<p>The signing credentials consist of:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -788,7 +800,7 @@ cd boothub-template-java-groovy
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.3.7-SNAPSHOT<br>
+Version 0.5.0-SNAPSHOT<br>
 </div>
 </div>
 </body>
