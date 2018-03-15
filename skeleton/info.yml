@@ -2,13 +2,13 @@ id: org.boothub.java-groovy
 name: Java / Groovy
 caption: A feature-rich Gradle-based skeleton for Java and/or Groovy projects.
 version:
-  major: 0
-  minor: 5
-  patch: 1
+  major: 1
+  minor: 0
+  patch: 0
 
 minimumRequiredBootHub:
-  major: 0
-  minor: 5
+  major: 1
+  minor: 0
   patch: 0
 
 homepage: http://java-groovy.boothub.org
