@@ -1,12 +1,7 @@
 [[introduction]]
 = Introduction
 
-NOTE: The source code is available on https://github.com/{{ghProjectOwner}}/{{ghProjectId}}[GitHub].
-
-{{projectName}} is licensed under the {{license}} license.
-Click on the icon below to read the license file:
-
-image::license.png[role="thumb" link="{blob-root}/LICENSE"]
+NOTE: The source code is available on https://github.com/{{ghProjectOwner}}/{{ghProjectId}}[GitHub] and is licensed under the {blob-root}/LICENSE[Apache-2.0 license].
 
 A few words about {{projectName}}:
 
