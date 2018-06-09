@@ -11,6 +11,5 @@ Features:
  - support for [AsciiDoc](http://asciidoc.org/) documentation
  - automatic publishing of versioned AsciiDoc and javadoc documentation to [GitHub Project Pages](https://help.github.com/articles/user-organization-and-project-pages/#project-pages)
  - static code analysis with [FindBugs](http://findbugs.sourceforge.net/)
- - code coverage with [Clover](https://www.atlassian.com/software/clover)
  - jar signing
  - jar publishing to JCenter and Maven Central
