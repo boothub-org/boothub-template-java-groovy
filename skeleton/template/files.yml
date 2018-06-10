@@ -17,3 +17,11 @@ enabled: {{asBoolean ghPagesCname}}
 --- !!org.boothub.context.FileContext
 filePath: gradle-local.template.properties
 enabled: {{supportBintray}}
+
+--- !!org.boothub.context.FileContext
+filePath: doc
+enabled: {{useAsciiDoc}}
+
+--- !!org.boothub.context.FileContext
+filePath: ghpages
+enabled: {{publishDoc}}
