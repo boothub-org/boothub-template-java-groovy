@@ -4,7 +4,7 @@ caption: A feature-rich Gradle-based skeleton for Java and/or Groovy projects.
 version:
   major: 1
   minor: 0
-  patch: 2
+  patch: 3
 
 minimumRequiredBootHub:
   major: 1
