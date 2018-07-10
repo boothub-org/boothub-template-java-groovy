@@ -23,5 +23,5 @@ Make sure to read the [documentation](http://java-groovy.boothub.org) before usi
 
 ### Quick start
 
-You can generate a project skeleton based on the Java/Groovy template by using the [BootHub GUI](https://boothub.org/app#/home/true/https%3A%2F%2Fgithub.com%2Fboothub-org%2Fboothub-template-java-groovy%2Freleases%2Fdownload%2Fv1.0.0%2Fjava-groovy-1.0.0.zip)
+You can generate a project skeleton based on the Java/Groovy template by using the [BootHub GUI](https://boothub.org/goto/org.boothub.java-groovy)
 or the [BootHub CLI](https://boothub.org/app#/cli).
